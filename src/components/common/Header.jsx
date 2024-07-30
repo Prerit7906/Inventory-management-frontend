@@ -1,8 +1,15 @@
 import React from 'react'
+import logo from "../../assests/warehouse.png"
+import "../../styles/Header.css"
 
-const Header = () => {
+const Header = (props) => {
   return (
-    <div>Header</div>
+    <div className="header">
+      <img src={logo} alt="Logo" className="logo" />
+      <div className="welcome-message">
+        Welcome to <b>{props.wareHouseName}</b> warehouse
+      </div>
+    </div>
   )
 }
 

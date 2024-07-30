@@ -1,12 +1,12 @@
 import React from 'react';
   
-  const About = () =>  {
+  const Products = () =>  {
 	return (
 	  <div>
-        About
+        Products
 	  </div>
 	);
   }
   
-  export default About;
+  export default Products;
   

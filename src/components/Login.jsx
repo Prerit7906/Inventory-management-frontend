@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Login.css'
 
 
 const Login = (props) => {
+  const [warehouses,setwareHouses]=useState([]);
   const wareHouses=[{
     warehouseId:1,
     warehouseName:"Bengaluru"
@@ -16,7 +17,10 @@ const Login = (props) => {
     warehouseId:4,
     warehouseName:"Mumbai"
   }];
-  
+  // useEffect(async()=>{
+  //   const response=
+  // },[])
+
   const submitHandler=(e)=>{
     e.preventDefault();
     props.setIsLoggedIn(true);
@@ -34,9 +38,9 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="warehouse">Warehouse</label>
-          <select onChange={warehouseChangeHandler}  id="warehouse" name="warehouse">
+          <select onChange={(e)=>{props.setWarehouseName(e.target.value)}} id="warehouse" name="warehouse">
           <option value="wareHouse" selected >Select warehouse</option>
-            {wareHouses.map(wareHouse => 
+          {wareHouses.map(wareHouse => 
               <option value={wareHouse.warehouseName}>{wareHouse.warehouseName}</option>
             )}
           </select>

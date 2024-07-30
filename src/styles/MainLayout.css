@@ -7,7 +7,7 @@
 .mainLeft{
     flex:1;
     background-color: #e0ede0;
-    height: 100vh;
+    /* height: 80vh */
 }
 .mainRight{
    flex:3;

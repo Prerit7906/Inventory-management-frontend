@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
   
   const Products = () =>  {
 	return (
-	  <div>
-        Products
+	  <div className='productsMain'>
+        <Link to={'/viewProducts'}>View Products</Link>
+        {/* <Link to={'/addAProduct'}>View Products</Link> */}
 	  </div>
 	);
   }

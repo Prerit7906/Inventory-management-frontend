@@ -1,36 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Login.css'
+import FetchData from '../api/FetchData';
 
 
 const Login = (props) => {
   const [warehouses,setwareHouses]=useState([]);
-  const wareHouses=[{
-    warehouseId:1,
-    warehouseName:"Bengaluru"
-  },{
-    warehouseId:2,
-    warehouseName:"Agra"
-  },{
-    warehouseId:3,
-    warehouseName:"Delhi"
-  },{
-    warehouseId:4,
-    warehouseName:"Mumbai"
-  }];
-  // useEffect(async()=>{
-  //   const response=
-  // },[])
+  const [selectedWarehouse, setSelectedWarehouse] = useState('');
+  const [selectedWarehouseId, setSelectedWarehouseId] = useState('');
+
+  useEffect(()=>{
+    FetchData("http://localhost:9090/api/v1.0/warehouses/all",setwareHouses);
+  },[])
 
   const submitHandler=(e)=>{
     e.preventDefault();
     props.setIsLoggedIn(true);
-    // alert("hgjhb");
-
+    props.setWarehouseName(selectedWarehouse);
+    props.setWarehouseId(selectedWarehouseId);
   }
-  const warehouseChangeHandler=(event)=>{
-    props.setWarehouseName(event.target.value);
-  }
-  
+  const handleWarehouseChange = (e) => {
+    const selectedOption = e.target.selectedOptions[0];
+    const selected = selectedOption.value;
+    const warehouseId = selectedOption.getAttribute('data-warehouse-id');
+    setSelectedWarehouse(selected);
+    setSelectedWarehouseId(warehouseId);
+  };
 
   return (
     <div className="login-container">
@@ -38,10 +32,18 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="warehouse">Warehouse</label>
-          <select onChange={(e)=>{props.setWarehouseName(e.target.value)}} id="warehouse" name="warehouse">
-          <option value="wareHouse" selected >Select warehouse</option>
-          {wareHouses.map(wareHouse => 
-              <option value={wareHouse.warehouseName}>{wareHouse.warehouseName}</option>
+          <select
+            value={selectedWarehouse}
+            onChange={handleWarehouseChange}
+            id="warehouse"
+            name="warehouse"
+            required
+          >
+            <option value="" disabled>Select warehouse</option>
+            {warehouses.map(warehouse =>
+              <option key={warehouse.warehouseId} value={warehouse.warehouseName} data-warehouse-id={warehouse.warehouseId}>
+                {warehouse.warehouseName}
+              </option>
             )}
           </select>
         </div>

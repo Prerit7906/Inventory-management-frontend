@@ -1,0 +1,15 @@
+.mainLayoutMainContent{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+}
+.mainLeft{
+    flex:1;
+    background-color: #e0ede0;
+    min-height: 100%;
+}
+.mainRight{
+   flex:3;
+}

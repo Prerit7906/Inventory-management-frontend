@@ -1,0 +1,30 @@
+.header {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px; /* Some padding */
+    text-align: center; /* Centered text */
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 5px;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+  
+  .header:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .logo {
+    width: 50px; /* Set the width of the logo */
+    height: 50px; /* Set the height of the logo */
+    margin-right: 25px; /* Space between logo and text */
+  }
+  
+  .welcome-message {
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+  }
+  

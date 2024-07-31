@@ -1,33 +1,33 @@
-/* .product-container {
+.product-container {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
   }
 
-  h1 {
+  .product-container h1 {
     text-align: center;
   }
 
-  table {
+  .product-container table {
     width: 100%;
     border-collapse: collapse;
   }
 
-  table, th, td {
+  .product-container table, th, td {
     border: 1px solid #ddd;
   }
 
-  th, td {
+  .product-container th, td {
     padding: 10px;
     text-align: left;
   }
 
-  th {
+  .product-container th {
     background-color: #f4f4f4;
   }
 
-  button {
+  .product-container button {
     margin: 0 5px;
     padding: 5px 10px;
     border: none;
@@ -37,7 +37,7 @@
     cursor: pointer;
   }
 
-  button:hover {
+  .product-container button:hover {
     background-color: #0056b3;
   }
 
@@ -60,4 +60,4 @@
 
   .edit-form button:hover {
     background-color: #218838;
-  } */
+  }

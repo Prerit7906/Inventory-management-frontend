@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Login from './components/Login';
-import Products from './pages/Products';
 import ViewProducts from './pages/ViewProducts';
+import Home from './pages/Home';
+import ProductDetails from './pages/ProductDetails';
+import AddProduct from './pages/AddProduct';
 import UpdateOrAddSalesOrder from './pages/UpdateOrAddSalesOrder';
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -22,11 +23,12 @@ function App() {
 
   return (
     <div className="App">
-      {isLoggedIn ? (
-        <MainLayout warehouseName={warehouseName}>
-          <Routes>
-            <Route exact path="/" Component={Products} />
-            <Route
+      {isLoggedIn?
+      <MainLayout warehouseName={warehouseName}  warehouseId={warehouseId}>
+      <Routes>
+      <Route exact path="/" element={<Home/>}>
+      </Route>
+      <Route
               path="/salesOrders"
               element={
                 <SalesOrders
@@ -36,14 +38,11 @@ function App() {
               }
             />
             <Route
-              path="/products/viewProducts"
-              element={<ViewProducts warehouseId={warehouseId} />}
-            />
-            <Route
               path="/salesOrders/addOrUpdate"
               element={
                 <UpdateOrAddSalesOrder
                   warehouseId={warehouseId}
+                  setIsUpdating={setIsUpdating}
                   isUpdating={isUpdating}
                   order={order}
                   onSave={() => setOrder(null)}
@@ -51,15 +50,11 @@ function App() {
                 />
               }
             />
-          </Routes>
-        </MainLayout>
-      ) : (
-        <Login
-          setWarehouseId={setWarehouseId}
-          setWarehouseName={setWarehouseName}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      )}
+      <Route path="/viewproducts"  element={<ViewProducts warehouseId={warehouseId}/>}></Route>
+      <Route path="/addproduct" element={<AddProduct />} /> 
+      <Route path="/products/:productId" element={<ProductDetails />} />
+    </Routes>
+    </MainLayout>:<Login setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn}/> }
     </div>
   );
 }

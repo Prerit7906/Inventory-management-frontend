@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/UpdateOrAddSalesOrder.css"
 
-const UpdateOrAddSalesOrder = ({ warehouseId, isUpdating, order, onSave, onCancel }) => {
+const UpdateOrAddSalesOrder = ({ warehouseId,setIsUpdating, isUpdating, order, onSave, onCancel }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(order?.quantity || '');
@@ -47,6 +47,7 @@ const UpdateOrAddSalesOrder = ({ warehouseId, isUpdating, order, onSave, onCance
       onSave();
       navigate('/salesOrders');
       alert(`Order ${isUpdating?'updated':"added"} successfully`);
+      setIsUpdating(false);
     } catch (error) {
       console.error("Error submitting form:", error);
     }

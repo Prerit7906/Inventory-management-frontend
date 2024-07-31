@@ -6,7 +6,7 @@ import "../../styles/Navbar.css"
   const Navbar = () =>  {
 	return (
 	  <div className='navbarMain'>
-        <Link to={'/'}>Products</Link>
+        <Link to={'/viewproducts'}>Products</Link>
         <Link to={'/about'}>Sales orders</Link>
 	  </div>
 	);

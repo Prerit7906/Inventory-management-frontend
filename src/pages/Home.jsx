@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 	return (
 	  <div>
         
-        <Link to={'/viewProducts'}><ViewProducts/></Link>
+        {/* <Link to={'/viewproducts'}><ViewProducts/></Link> */}
 	  </div>
 	);
   }

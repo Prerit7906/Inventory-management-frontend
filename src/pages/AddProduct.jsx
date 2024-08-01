@@ -1,18 +1,38 @@
-// src/components/AddProduct.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// prerit from here 
+import '../styles/AddProduct.css';
 
-const AddProduct = () => {
+const AddProduct = ({ warehouseId }) => {
   const [formData, setFormData] = useState({
     productName: '',
     description: '',
     unitPrice: '',
     unitsInStocks: '',
-    categoryId: '',
-    warehouseId: ''
+    categoryId: ''
   });
+
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:9090/api/v1.0/categories/all');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
+        } else {
+          console.error('Error fetching categories:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+// to here 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,7 +44,8 @@ const AddProduct = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:9090/api/v1.0/products/all/' + formData.categoryId + '/' + formData.warehouseId, {
+      // prerit here changed the warehouseID
+      const response = await fetch(`http://localhost:9090/api/v1.0/products/all/${formData.categoryId}/${warehouseId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,8 +73,27 @@ const AddProduct = () => {
     <div className="add-product-container">
       <h2>Add New Product</h2>
       <form onSubmit={handleFormSubmit} className="add-product-form">
+        {/* prerit from here */}
         <div className="form-group">
-          <label htmlFor="productName">Name</label>
+          <label htmlFor="categoryId">Category:</label>
+          <select
+            id="categoryId"
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="" disabled>Select a category</option>
+            {categories.map((category) => (
+              <option key={category.categoryId} value={category.categoryId}>
+                {category.categoryName}(Id: {category.categoryId})
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* to here */}
+        <div className="form-group">
+          <label htmlFor="productName">Name:</label>
           <input
             type="text"
             id="productName"
@@ -64,7 +104,7 @@ const AddProduct = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
             id="description"
@@ -75,19 +115,18 @@ const AddProduct = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="unitPrice">Price</label>
+          <label htmlFor="unitPrice">Price:</label>
           <input
             type="number"
             id="unitPrice"
             name="unitPrice"
             value={formData.unitPrice}
             onChange={handleInputChange}
-            step="0.01"
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="unitsInStocks">Stock</label>
+          <label htmlFor="unitsInStocks">Stock:</label>
           <input
             type="number"
             id="unitsInStocks"
@@ -97,29 +136,12 @@ const AddProduct = () => {
             required
           />
         </div>
+        {/* prerit from here wrapped the buttons in div and some more */}
         <div className="form-group">
-          <label htmlFor="categoryId">Category ID</label>
-          <input
-            type="text"
-            id="categoryId"
-            name="categoryId"
-            value={formData.categoryId}
-            onChange={handleInputChange}
-            required
-          />
+          <button id='go-back-button' onClick={() => navigate('/viewProducts')} >Go Back</button>
+          <button type="submit">Add Product</button>
         </div>
-        <div className="form-group">
-          <label htmlFor="warehouseId">Warehouse ID</label>
-          <input
-            type="text"
-            id="warehouseId"
-            name="warehouseId"
-            value={formData.warehouseId}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <button type="submit">Add Product</button>
+        {/* to here  */}
       </form>
     </div>
   );

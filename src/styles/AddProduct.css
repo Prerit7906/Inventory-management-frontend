@@ -1,23 +1,25 @@
-.updateSalesOrder form{
+/* prerit changes across the file  */
+.add-product-container{
+    width: 60%;
+    height: 100%;
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 5px;
+}
+
+.add-product-form{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
 }
-/* prerit in whole file from here */
-.updateSalesOrder{
-    width: 60%;
-    height: 100%;
-    border-radius: 5px;
-}
-.updateSalesOrder .form-group{
+.add-product-form .form-group{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 70%;
 }
-.updateSalesOrder button{
+.add-product-form button{
     background-color: green;
     padding: 10px;
     color: white;

@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Login.css'
 import FetchData from '../api/FetchData';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = (props) => {
+  const navigate=useNavigate();
   const [warehouses,setwareHouses]=useState([]);
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedWarehouseId, setSelectedWarehouseId] = useState('');
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [isUservalid,setIsUserValid]=useState(false);
 
   useEffect(()=>{
     FetchData("http://localhost:9090/api/v1.0/warehouses/all",setwareHouses);
   },[])
 
-  const submitHandler=(e)=>{
+  const submitHandler=async (e)=>{
+    var responseData=null;
     e.preventDefault();
-    props.setIsLoggedIn(true);
+    const url=`http://localhost:9090/api/v1.0/warehouses/check-credentials/${selectedWarehouseId}/${userId}/${password}`;
+    const response= await fetch(url);
+    responseData=await response.json();
+    // if(responseData!=null){
+      if(response.ok){
+      props.setIsLoggedIn(true);
     props.setWarehouseName(selectedWarehouse);
-    props.setWarehouseId(selectedWarehouseId);
+  props.setWarehouseId(selectedWarehouseId);
+  navigate('/home');
+    }
+    else{
+      // props.setIsLoggedIn(false);
+      alert("user is not valid");
+    }    
   }
   const handleWarehouseChange = (e) => {
     const selectedOption = e.target.selectedOptions[0];
@@ -49,14 +66,16 @@ const Login = (props) => {
         </div>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" name="username"  />
+          <input required onChange={(e)=>{setUserId(e.target.value)}} type="text" id="username" name="username"  />
         </div>
         <div className="form-group">
           <label htmlFor="id">ID</label>
-          <input type="text" id="id" name="id" />
+          <input required onChange={(e)=>{setPassword(e.target.value)}} type="text" id="id" name="id" />
         </div>
         <button type="submit">Login</button>
       </form>
+      <br />
+      <Link to={'/signup'}>Register here</Link>
     </div>
   );
 };

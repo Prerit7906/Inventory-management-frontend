@@ -47,6 +47,7 @@ const UpdateOrAddSalesOrder = ({ warehouseId,setIsUpdating, isUpdating, order, o
       onSave();
       navigate('/salesOrders');
       alert(`Order ${isUpdating?'updated':"added"} successfully`);
+      // prerit here 
       setIsUpdating(false);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -57,7 +58,8 @@ const UpdateOrAddSalesOrder = ({ warehouseId,setIsUpdating, isUpdating, order, o
     <div className='updateSalesOrder'>
       <h2>{isUpdating ? 'Update' : 'Add'} Sales Order</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        {/* prerit here  */}
+        <div className='form-group'>
           <label>Product ID</label>
           <select value={productId} onChange={(e) => setProductId(e.target.value)} required>
             <option value="">Select a product</option>
@@ -68,13 +70,18 @@ const UpdateOrAddSalesOrder = ({ warehouseId,setIsUpdating, isUpdating, order, o
             ))}
           </select>
         </div>
-        <div>
+        {/* prerit here  */}
+        <div className='form-group'>
           <label>Quantity</label>
           <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
         </div>
         <div>
+          {/* prerit from here  */}
+          <div className='form-group'>
+        <button id='go-back-button' type="button" onClick={() => { onCancel(); navigate('/salesOrders'); }}>Cancel</button>
         <button type="submit">{isUpdating ? 'Update' : 'Add'} Sales Order</button>
-        <button type="button" onClick={() => { onCancel(); navigate('/salesOrders'); }}>Cancel</button>
+        </div>
+        {/* to here  */}
         </div>
       </form>
     </div>

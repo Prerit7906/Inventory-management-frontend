@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import AddProduct from './pages/AddProduct';
 import UpdateOrAddSalesOrder from './pages/UpdateOrAddSalesOrder';
+import Category from './pages/Category';
+import Signup from './pages/Signup';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -24,10 +26,10 @@ function App() {
   return (
     <div className="App">
       {isLoggedIn?
-      <MainLayout warehouseName={warehouseName}  warehouseId={warehouseId}>
+      // prerit here 
+      <MainLayout warehouseName={warehouseName} setIsLoggedIn={setIsLoggedIn}  warehouseId={warehouseId}>
       <Routes>
-      <Route exact path="/" element={<Home/>}>
-      </Route>
+      <Route path='/home'element={<Home/>}/>
       <Route
               path="/salesOrders"
               element={
@@ -51,10 +53,21 @@ function App() {
               }
             />
       <Route path="/viewproducts"  element={<ViewProducts warehouseId={warehouseId}/>}></Route>
-      <Route path="/addproduct" element={<AddProduct />} /> 
+      {/* prerit here  */}
+      <Route path="/addproduct" element={<AddProduct warehouseId={warehouseId} />} /> 
       <Route path="/products/:productId" element={<ProductDetails />} />
+      {/* prerit here  */}
+      <Route path="/categories" element={<Category />} />
+      
+      
     </Routes>
-    </MainLayout>:<Login setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn}/> }
+    </MainLayout>:
+    <Routes>
+      <Route path="/signup" element={<Signup setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn} />} />
+      <Route exact path="/" element={<Login setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn}/> }>
+      </Route>
+    </Routes>
+    }
     </div>
   );
 }

@@ -1,8 +1,10 @@
+/* prerit here in whole file changed the css target element to remove ambiguity  */
 .product-container {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    width: 80%;
   }
 
   .product-container h1 {
@@ -29,16 +31,16 @@
 
   .product-container button {
     margin: 0 5px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border: none;
-    border-radius: 3px;
-    background-color: #007bff;
+    border-radius: 5px;
+    background-color: #218838;
     color: #fff;
     cursor: pointer;
   }
 
   .product-container button:hover {
-    background-color: #0056b3;
+    background-color: #47a85c;
   }
 
   .edit-form {

@@ -6,7 +6,8 @@ import "../styles/MainLayout.css"
   const MainLayout = (props) =>  {
 	return (
     <>
-    <Header warehouseName={props.warehouseName}/>
+    {/* prerit here  */}
+    <Header warehouseName={props.warehouseName} setIsLoggedIn={props.setIsLoggedIn}/>
     <div className='mainLayoutMainContent'>
       <div className='mainLeft'>
     <Navbar />

@@ -1,0 +1,33 @@
+/* prerit changes across the file  */
+.add-product-container{
+    width: 60%;
+    height: 100%;
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 5px;
+}
+
+.add-product-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.add-product-form .form-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+.add-product-form button{
+    background-color: green;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#go-back-button{
+    background-color: #8d1f1f;
+}

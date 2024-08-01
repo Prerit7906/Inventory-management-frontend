@@ -59,7 +59,7 @@ const ProductDetails = () => {
       if(response.ok) {
         console.log(response);
         setIsEditing(false);
-        console.log("EFadfa");
+        alert("Maja aa gya")
         navigate('/viewproducts');
       } else {
        

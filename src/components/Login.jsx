@@ -21,11 +21,12 @@ const Login = (props) => {
     var responseData=null;
     e.preventDefault();
     const url=`http://localhost:9090/api/v1.0/warehouses/check-credentials/${selectedWarehouseId}/${userId}/${password}`;
+    console.log(url);
     const response= await fetch(url);
     responseData=await response.json();
-    // if(responseData!=null){
-      if(response.ok){
+    if(responseData){
       props.setIsLoggedIn(true);
+      setIsUserValid(true);
     props.setWarehouseName(selectedWarehouse);
   props.setWarehouseId(selectedWarehouseId);
   navigate('/home');
@@ -69,8 +70,8 @@ const Login = (props) => {
           <input required onChange={(e)=>{setUserId(e.target.value)}} type="text" id="username" name="username"  />
         </div>
         <div className="form-group">
-          <label htmlFor="id">ID</label>
-          <input required onChange={(e)=>{setPassword(e.target.value)}} type="text" id="id" name="id" />
+          <label htmlFor="id">Password</label>
+          <input required onChange={(e)=>{setPassword(e.target.value)}} type="password" id="id" name="id" />
         </div>
         <button type="submit">Login</button>
       </form>

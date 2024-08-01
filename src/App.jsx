@@ -11,6 +11,7 @@ import AddProduct from './pages/AddProduct';
 import UpdateOrAddSalesOrder from './pages/UpdateOrAddSalesOrder';
 import Category from './pages/Category';
 import Signup from './pages/Signup';
+import Suppliers from './pages/Suppliers';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -58,7 +59,7 @@ function App() {
       <Route path="/products/:productId" element={<ProductDetails />} />
       {/* prerit here  */}
       <Route path="/categories" element={<Category />} />
-      
+      <Route path="/suppliers" element={<Suppliers />} />
       
     </Routes>
     </MainLayout>:

@@ -5,6 +5,9 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    position: absolute;
+    width: 25%;
+    height: 80%;
 }
 a{
     text-decoration: none;

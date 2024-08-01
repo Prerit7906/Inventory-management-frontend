@@ -9,7 +9,9 @@ const Header = (props) => {
   const navigate=useNavigate();
   return (
     <div className="header">
-      <img src={logo} alt="Logo" className="logo" />
+      <img onClick={()=>{
+        navigate('/home');
+      }} src={logo} alt="Logo" className="logo" />
       <div className="welcome-message">
         Welcome to <b>{props.warehouseName}</b> warehouse
       </div>

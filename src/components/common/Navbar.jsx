@@ -8,6 +8,7 @@ import "../../styles/Navbar.css"
         <Link to={'/categories'}>Categories</Link>
         <Link to={'/viewproducts'}>Products</Link>
         <Link to={'/salesOrders'}>Sales orders</Link>
+        <Link to={'/suppliers'}>Suppliers</Link>
 	  </div>
 	);
   }

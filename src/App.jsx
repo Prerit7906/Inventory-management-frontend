@@ -12,6 +12,7 @@ import UpdateOrAddSalesOrder from './pages/UpdateOrAddSalesOrder';
 import Category from './pages/Category';
 import Signup from './pages/Signup';
 import Suppliers from './pages/Suppliers';
+import LowLevels from './pages/LowLevels';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -54,6 +55,8 @@ function App() {
               }
             />
       <Route path="/viewproducts"  element={<ViewProducts warehouseId={warehouseId}/>}></Route>
+      <Route path="/lowproducts"  element={<LowLevels warehouseId={warehouseId}/>}></Route>
+      
       {/* prerit here  */}
       <Route path="/addproduct" element={<AddProduct warehouseId={warehouseId} />} /> 
       <Route path="/products/:productId" element={<ProductDetails />} />

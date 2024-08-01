@@ -7,6 +7,7 @@ import "../../styles/Navbar.css"
 	  <div className='navbarMain'>
         <Link to={'/categories'}>Categories</Link>
         <Link to={'/viewproducts'}>Products</Link>
+        <Link to={'/lowproducts'}>Inventory Levels</Link>
         <Link to={'/salesOrders'}>Sales orders</Link>
         <Link to={'/suppliers'}>Suppliers</Link>
 	  </div>

@@ -42,6 +42,45 @@ const UpdateOrAddSalesOrder = ({ warehouseId,setIsUpdating, isUpdating, order, o
         alert(`Failed to ${isUpdating?'update':"add"} the order`);
         throw new Error("Failed to submit form");
       }
+
+//update products table based on sales
+
+      if(isUpdating){
+        const res = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
+        const d1 = await res.json();
+        const currentStock = d1.unitsInStocks;
+          // Calculate the difference in quantity
+        const oldQuantity = order?.quantity || 0;
+        const newQuantity = quantity;
+        const stockDifference = newQuantity - oldQuantity;
+
+        // Update stock based on the difference
+        const updatedStock = currentStock - stockDifference;
+        const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
+          method: 'PUT'
+        });
+
+        if (!updateStockResponse.ok) {
+          throw new Error("Failed to update product stock");
+        }
+
+        
+      }
+      else{
+        const res = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
+        const d1 = await res.json();
+        const stock = d1.unitsInStocks;
+
+        const url2 = `http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${stock-quantity}`;
+        const response = await fetch(url2, {
+          method: 'PUT'
+        });
+
+        // products
+      }
+
+
+
       setQuantity('');
       setProductId('');
       onSave();

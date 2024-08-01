@@ -7,35 +7,29 @@
     background-color: #f9f9f9;
   }
   
-  .login-container h2 {
+  h2 {
     text-align: center;
     margin-bottom: 20px;
   }
-  /* prerit from here  */
-  .login-container .form-group {
+  
+  .form-group {
     margin-bottom: 15px;
   }
   
-  .login-container .form-group label {
+  .form-group label {
     display: block;
     margin-bottom: 5px;
   }
   
-  .login-container .form-group input{
+  .form-group input,
+  .form-group select {
     width: 100%;
-    padding: 8px 0 ;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .login-container .form-group select{
-    width: 100%;
-    padding: 8px 0 ;
-    /* to here  */
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  .login-container button {
+  button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -46,7 +40,7 @@
     cursor: pointer;
   }
   
-  .login-container button:hover {
+  button:hover {
     background-color: #45a049;
   }
   

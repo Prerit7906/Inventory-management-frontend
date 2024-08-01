@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
-import "../styles/SalesOrders.css"
 
-const SalesOrders = ({ warehouseId ,onEditOrder}) => {
+const SalesOrders = () => {
   const [salesOrders, setSalesOrders] = useState([]);
-  const navigate = useNavigate();
+  const [quantity, setQuantity] = useState('');
+  const [productId, setProductId] = useState('');
+  const [salesOrderId, setSalesOrderId] = useState(null); // For updating
+  const [isUpdating, setIsUpdating] = useState(false);
+
   useEffect(() => {
     fetchSalesOrders();
   }, []);
@@ -19,6 +21,36 @@ const SalesOrders = ({ warehouseId ,onEditOrder}) => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = isUpdating
+        ? `http://localhost:9090/api/v1.0/salesOrders/all/update/${productId}/${salesOrderId}`
+        : `http://localhost:9090/api/v1.0/salesOrders/all/${productId}`;
+      const method = isUpdating ? 'PUT' : 'POST';
+      
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      setQuantity('');
+      setProductId('');
+      setSalesOrderId(null);
+      setIsUpdating(false);
+      fetchSalesOrders();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:9090/api/v1.0/salesOrders/all/${id}`, {
@@ -28,6 +60,7 @@ const SalesOrders = ({ warehouseId ,onEditOrder}) => {
       if (!response.ok) {
         throw new Error("Failed to delete sales order");
       }
+
       fetchSalesOrders();
     } catch (error) {
       console.error("Error deleting sales order:", error);
@@ -35,46 +68,37 @@ const SalesOrders = ({ warehouseId ,onEditOrder}) => {
   };
 
   const handleEdit = (order) => {
-    onEditOrder(order);
-    navigate('/salesOrders/addOrUpdate');
+    setQuantity(order.quantity);
+    setProductId(order.product.productId);
+    setSalesOrderId(order.salesOrderId);
+    setIsUpdating(true);
   };
 
   return (
-    <div className='salesOrdersMain'>
-      <Link to="/salesOrders/addOrUpdate">Add a Sales Order</Link>
-      <div>
-        <h3>List of Sales Orders</h3>
-        <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Product Id</th>
-            <th>Category</th>
-            <th>Order Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {salesOrders.map(order => (
-            <tr key={order.salesOrderId}>
-              <td>{order.salesOrderId}</td>
-              <td>{order.product.productName}</td>
-              <td>{order.quantity}</td>
-              <td>{order.product.productId}</td>
-              <td>{order.product.category.categoryName}</td>
-              <td>{order.orderDate}</td>
-              <td>
-              <button onClick={() => handleEdit(order)}>Edit</button>
-              <button onClick={() => handleDelete(order.salesOrderId)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        {/* </ul> */}
-        </tbody>
-        </table>
-      </div>
+    <div>
+      <h2>Sales Orders</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Quantity</label>
+          <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+        </div>
+        <div>
+          <label>Product ID</label>
+          <input type="number" value={productId} onChange={(e) => setProductId(e.target.value)} required />
+        </div>
+        <button type="submit">{isUpdating ? 'Update' : 'Add'} Sales Order</button>
+      </form>
+
+      <h3>List of Sales Orders</h3>
+      <ul>
+        {salesOrders.map(order => (
+          <li key={order.salesOrderId}>
+            {order.quantity} - {order.product.productId}
+            <button onClick={() => handleEdit(order)}>Edit</button>
+            <button onClick={() => handleDelete(order.salesOrderId)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

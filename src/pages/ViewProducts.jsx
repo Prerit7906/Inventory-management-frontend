@@ -29,7 +29,41 @@ const ViewProducts = (props) => {
     }
   };
 
-  
+  // const handleEdit = async () => {
+  //   if (selectedProduct) {
+  //     try {
+  //       await fetch(`http://localhost:9090/api/v1.0/products/all/${selectedProduct.productId}/${categoryId}`, {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           ...selectedProduct,
+  //           productName,
+  //           description: productDescription,
+  //           unitPrice,
+  //           unitsInStocks: unitsInStock,
+  //           category: { categoryId },
+  //           warehouse: { warehouseId }
+  //         }),
+  //       });
+  //       fetchProducts();
+  //     } catch (error) {
+  //       console.error('Error updating product:', error);
+  //     }
+  //   }
+  // };
+
+  // const handleDelete = async (productId) => {
+  //   try {
+  //     await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`, {
+  //       method: 'DELETE',
+  //     });
+  //     fetchProducts();
+  //   } catch (error) {
+  //     console.error('Error deleting product:', error);
+  //   }
+  // };
 
   return (
     <div className="product-container">
@@ -49,20 +83,18 @@ const ViewProducts = (props) => {
           </tr>
         </thead>
         <tbody>
-        { products!= null ? products.map(product => (
+          {products.map(product => (
             <tr key={product.productId}>
-            <td>{product.productId}</td>
-            <td>{product.productName}</td>
-            <td>{product.description}</td>
-            <td>${product.unitPrice}</td>
-            <td>{product.unitsInStocks}</td>
-            <td>
-            <Link to={`/products/${product.productId}`}>View Details</Link>
-            </td>
+              <td>{product.productId}</td>
+              <td>{product.productName}</td>
+              <td>{product.description}</td>
+              <td>${product.unitPrice}</td>
+              <td>{product.unitsInStocks}</td>
+              <td>
+              <Link to={`/products/${product.productId}`}>View Details</Link>
+              </td>
             </tr>
-          )):
-            <tr> <td colSpan={6}>No products available</td></tr>
-          }
+          ))}
         </tbody>
       </table>
 

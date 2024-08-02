@@ -15,6 +15,7 @@ import Suppliers from './pages/Suppliers';
 import LowLevels from './pages/LowLevels';
 import PurchaseOrders from './pages/PurchaseOrders';
 import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
+import HighLevels from './pages/HighLevels';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -23,6 +24,7 @@ function App() {
   const [isUpdating1, setIsUpdating1] = useState(false);
   const [order, setOrder] = useState(null);
   const [order1, setOrder1] = useState(null);
+  const [maxStockAlert, setmaxStockAlert] = useState(null);
 
   const handleEditOrder = (order) => {
     setOrder(order);
@@ -77,6 +79,7 @@ function App() {
                 <UpdateOrAddPurchaseOrder
                   warehouseId={warehouseId}
                   setIsUpdating={setIsUpdating1}
+                  // setmaxStockAlert={setmaxStockAlert}
                   isUpdating={isUpdating1}
                   order={order1}
                   onSave={() => setOrder1(null)}
@@ -86,7 +89,7 @@ function App() {
             />
       <Route path="/viewproducts"  element={<ViewProducts warehouseId={warehouseId}/>}></Route>
       <Route path="/lowproducts"  element={<LowLevels warehouseId={warehouseId}/>}></Route>
-      
+      <Route path="/highproducts"  element={<HighLevels warehouseId={warehouseId}/>}></Route>
       {/* prerit here  */}
       <Route path="/addproduct" element={<AddProduct warehouseId={warehouseId} />} /> 
       <Route path="/products/:productId" element={<ProductDetails />} />

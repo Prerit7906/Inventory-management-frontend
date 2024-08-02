@@ -8,6 +8,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
   const [quantity, setQuantity] = useState(order?.quantity || '');
   const [productId, setProductId] = useState(order?.product?.productId || '');
   const [supplierId, setSupplierId] = useState(order?.suppliers?.supplierId || '');
+  const [maxStockAlert, setMaxStockAlert] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -75,20 +76,41 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
         updatedStock = parseInt(currentStock) + parseInt(quantity);
       }
 
-      const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
-        method: 'PUT'
-      });
+      if (updatedStock > 2500) {
+        const res1 = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
+        const d1 = await res1.json();
+        try {
+          const response = await fetch(`http://localhost:9090/api/v1.0/purchase/${productId}`, {
+            method: 'DELETE'
+          });
 
-      if (!updateStockResponse.ok) {
-        throw new Error("Failed to update product stock");
+          if (!response.ok) {
+            throw new Error("Failed to delete purchase order");
+          }
+        } catch (error) {
+          console.error("Error deleting purchase order:", error);
+        }
+
+        setMaxStockAlert(d1.productName);
+        setTimeout(() => {
+          setMaxStockAlert(null);
+        }, 3000);
+      } else {
+        const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
+          method: 'PUT'
+        });
+
+        if (!updateStockResponse.ok) {
+          throw new Error("Failed to update product stock");
+        }
+        alert(`Order ${isUpdating ? 'updated' : 'added'} successfully`);
+
+        setQuantity('');
+        setProductId('');
+        onSave();
+        navigate('/purchaseOrders');
+        setIsUpdating(false);
       }
-
-      setQuantity('');
-      setProductId('');
-      onSave();
-      navigate('/purchaseOrders');
-      alert(`Order ${isUpdating ? 'updated' : 'added'} successfully`);
-      setIsUpdating(false);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -96,6 +118,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
 
   return (
     <div className='updateSalesOrder'>
+      {maxStockAlert && <p>Stock of {maxStockAlert} is more than maximum level, Couldn't place order</p>}
       <h2>{isUpdating ? 'Update' : 'Add'} Purchase Order</h2>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>

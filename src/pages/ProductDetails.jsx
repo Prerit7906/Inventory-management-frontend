@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../styles/ProductDetails.css'; // Ensure you import the CSS file
+import '../styles/ProductDetails.css'; 
+import { imageDb } from '../firebase/firebase.js';
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -12,6 +15,48 @@ const ProductDetails = () => {
     unitsInStocks: ''
   });
   const navigate = useNavigate();
+
+  const [img,setImg] =useState('')
+    const [imgUrl,setImgUrl] =useState([])
+
+    const handleClick = () =>{
+     if(img !==null){
+        const imgRef =  ref(imageDb,`files/${productId}/${v4()}`)
+        uploadBytes(imgRef,img).then(value=>{
+            console.log(value)
+            getDownloadURL(value.ref).then(url=>{
+                setImgUrl(data=>[...data,url])
+            })
+        })
+     }
+    }
+
+    const fetchImages = async () => {
+      try {
+        const listRef = ref(imageDb, `files/${productId}`);
+        const images = await listAll(listRef);
+        const urls = await Promise.all(images.items.map(async (item) => {
+          const url = await getDownloadURL(item);
+          return url;
+        }));
+        setImgUrl(urls);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    };
+
+  //   const fetchImages = async () => {listAll(ref(imageDb,`files/${productId}`)).then(imgs=>{
+  //     console.log(imgs)
+  //     imgs.items.forEach(val=>{
+  //         getDownloadURL(val).then(url=>{
+  //             setImgUrl(data=>[...data,url])
+  //         })
+  //     })
+  // })}
+
+    useEffect(()=>{
+      fetchImages();
+  },[productId])
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -54,6 +99,7 @@ const ProductDetails = () => {
           unitsInStocks: parseInt(formData.unitsInStocks, 10)
         }),
       });
+      console.log(product);
       
 
       if(response.ok) {
@@ -94,8 +140,9 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="product-container">
-    
+    <div className='new-cont'>
+        <div className="product-container">
+      
       <h2>Product Details</h2>
       {isEditing ? (
         <form onSubmit={handleFormSubmit} className="edit-form">
@@ -164,6 +211,18 @@ const ProductDetails = () => {
           <button onClick={() => navigate('/viewproducts')}>Go Back</button>
         </>
       )}
+      <input type="file" onChange={(e)=>setImg(e.target.files[0])} /> 
+      <button onClick={handleClick}>Upload</button>
+    </div>
+      
+       <div className='display-image'>
+        {imgUrl.map((url, index) => (
+          <div className="each-image" key={index}>
+            <img src={url} alt={`Product ${index}`} height="200px" width="200px" />
+            <br />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

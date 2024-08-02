@@ -1,6 +1,6 @@
 import './App.css';
 import SalesOrders from './pages/SalesOrders';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Login from './components/Login';
@@ -13,16 +13,24 @@ import Category from './pages/Category';
 import Signup from './pages/Signup';
 import Suppliers from './pages/Suppliers';
 import LowLevels from './pages/LowLevels';
+import PurchaseOrders from './pages/PurchaseOrders';
+import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
   const [warehouseId, setWarehouseId] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating1, setIsUpdating1] = useState(false);
   const [order, setOrder] = useState(null);
+  const [order1, setOrder1] = useState(null);
 
   const handleEditOrder = (order) => {
     setOrder(order);
     setIsUpdating(true);
+  };
+  const handleEditOrder1 = (order) => {
+    setOrder1(order);
+    setIsUpdating1(true);
   };
 
   return (
@@ -54,6 +62,28 @@ function App() {
                 />
               }
             />
+            <Route
+              path="/purchaseOrders"
+              element={
+                <PurchaseOrders
+                  warehouseId={warehouseId}
+                  onEditOrder={handleEditOrder1}
+                />
+              }
+            />
+            <Route
+              path="/purchaseOrders/addOrUpdate"
+              element={
+                <UpdateOrAddPurchaseOrder
+                  warehouseId={warehouseId}
+                  setIsUpdating={setIsUpdating1}
+                  isUpdating={isUpdating1}
+                  order={order1}
+                  onSave={() => setOrder1(null)}
+                  onCancel={() => setOrder1(null)}
+                />
+              }
+            />
       <Route path="/viewproducts"  element={<ViewProducts warehouseId={warehouseId}/>}></Route>
       <Route path="/lowproducts"  element={<LowLevels warehouseId={warehouseId}/>}></Route>
       
@@ -63,12 +93,11 @@ function App() {
       {/* prerit here  */}
       <Route path="/categories" element={<Category />} />
       <Route path="/suppliers" element={<Suppliers />} />
-      
     </Routes>
     </MainLayout>:
     <Routes>
       <Route path="/signup" element={<Signup setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn} />} />
-      <Route exact path="/" element={<Login setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn}/> }>
+      <Route path="/" element={<Login setWarehouseId={setWarehouseId} setWarehouseName={setWarehouseName} setIsLoggedIn={setIsLoggedIn}/> }>
       </Route>
     </Routes>
     }

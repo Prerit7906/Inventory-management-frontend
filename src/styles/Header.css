@@ -27,4 +27,13 @@
     font-size: 24px; /* Larger font size */
     font-weight: bold; /* Bold text */
   }
-  
+  .header button{
+    margin-left: 10px;
+    color: Green;
+    background-color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }

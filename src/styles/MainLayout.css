@@ -16,7 +16,7 @@
 }
 .mainRight{
     /* position: relative; */
-    height: 70%;
+    height: 100%;
    flex:3;
    display: flex;
    justify-content: center;

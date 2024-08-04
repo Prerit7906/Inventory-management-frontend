@@ -1,9 +1,9 @@
 /* prerit changes across the file  */
 .add-product-container{
     width: 60%;
-    height: 100%;
     border: 2px solid rgb(199, 199, 199);
     border-radius: 5px;
+    padding: 1rem;
 }
 
 .add-product-form{

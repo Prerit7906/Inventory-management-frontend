@@ -13,6 +13,7 @@ const AddProduct = ({ warehouseId }) => {
   });
 
   const [categories, setCategories] = useState([]);
+  const [alertMessage, setAlertMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,8 +60,11 @@ const AddProduct = ({ warehouseId }) => {
       });
 
       if (response.ok) {
-        alert('Product added successfully');
-        navigate('/viewproducts');
+        setAlertMessage('Product added successfully :)');
+        setTimeout(() => {
+          setAlertMessage('');
+          navigate('/viewproducts');
+        }, 4000);
       } else {
         console.error('Error adding product:', response.statusText);
       }
@@ -70,6 +74,13 @@ const AddProduct = ({ warehouseId }) => {
   };
 
   return (
+    <>
+    {alertMessage && (
+        <div id="alertMessage">
+          {alertMessage}
+          <div id="progressBar"></div>
+        </div>
+      )}
     <div className="add-product-container">
       <h2>Add New Product</h2>
       <form onSubmit={handleFormSubmit} className="add-product-form">
@@ -82,7 +93,7 @@ const AddProduct = ({ warehouseId }) => {
             value={formData.categoryId}
             onChange={handleInputChange}
             required
-          >
+            >
             <option value="" disabled>Select a category</option>
             {categories.map((category) => (
               <option key={category.categoryId} value={category.categoryId}>
@@ -101,7 +112,7 @@ const AddProduct = ({ warehouseId }) => {
             value={formData.productName}
             onChange={handleInputChange}
             required
-          />
+            />
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
@@ -112,7 +123,7 @@ const AddProduct = ({ warehouseId }) => {
             value={formData.description}
             onChange={handleInputChange}
             required
-          />
+            />
         </div>
         <div className="form-group">
           <label htmlFor="unitPrice">Price:</label>
@@ -123,7 +134,7 @@ const AddProduct = ({ warehouseId }) => {
             value={formData.unitPrice}
             onChange={handleInputChange}
             required
-          />
+            />
         </div>
         <div className="form-group">
           <label htmlFor="unitsInStocks">Stock:</label>
@@ -134,7 +145,7 @@ const AddProduct = ({ warehouseId }) => {
             value={formData.unitsInStocks}
             onChange={handleInputChange}
             required
-          />
+            />
         </div>
         {/* prerit from here wrapped the buttons in div and some more */}
         <div className="form-group">
@@ -144,6 +155,7 @@ const AddProduct = ({ warehouseId }) => {
         {/* to here  */}
       </form>
     </div>
+    </>
   );
 };
 

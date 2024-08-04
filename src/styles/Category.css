@@ -1,0 +1,47 @@
+#alertMessage {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    color: Green;
+    background-color: #b5ddb7;;
+    border-radius: 3px;
+    padding: 20px 0;
+    text-align: center;
+    z-index: 1000;
+    animation: slideDownUp 4s ease-in-out;
+  }
+  
+  @keyframes slideDownUp {
+    0% {
+      top: -100px;
+    }
+    10% {
+      top: 0;
+    }
+    90% {
+      top: 0;
+    }
+    100% {
+      top: -100px;
+    }
+  }
+  
+  #progressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: Green;
+    animation: decrease 4s linear;
+  }
+  
+  @keyframes decrease {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+  

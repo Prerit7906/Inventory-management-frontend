@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Category.css';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     fetchCategories();
@@ -34,7 +36,10 @@ const Category = () => {
       });
 
       if (response.ok) {
-        alert('Category added successfully');
+        setAlertMessage("Category added successfully :)");
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
         setCategoryName('');
         fetchCategories(); // Refresh the categories list
       } else {
@@ -52,10 +57,17 @@ const Category = () => {
       });
 
       if (response.ok) {
-        alert('Category deleted successfully');
+        setAlertMessage(`Category deleted successfully!!`);
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
         fetchCategories(); // Refresh the categories list
       } else {
-        console.error('Error deleting category:', response.statusText);
+        setAlertMessage(`You cannot delete this category because a product of this category is present`);
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
+        console.error('Error deleting category', response.statusText);
       }
     } catch (error) {
       console.error('Error deleting category:', error);
@@ -63,41 +75,49 @@ const Category = () => {
   };
 
   return (
-    <div className='categoryMain'>
-      <h2>Manage Categories</h2>
-      <form onSubmit={handleAddCategory}>
-        <input
-          type='text'
-          value={categoryName}
-          onChange={(e) => setCategoryName(e.target.value)}
-          placeholder='Enter category name'
-          required
-        />
-        <button type='submit'>Add Category</button>
-      </form>
+    <>
+      {alertMessage && (
+        <div id='alertMessage'>
+          {alertMessage}
+          <div id='progressBar'></div>
+        </div>
+      )}
+      <div className='categoryMain'>
+        <h2>Manage Categories</h2>
+        <form onSubmit={handleAddCategory}>
+          <input
+            type='text'
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+            placeholder='Enter category name'
+            required
+          />
+          <button type='submit'>Add Category</button>
+        </form>
 
-      <h3>All Categories</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Category ID</th>
-            <th>Category Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((category) => (
-            <tr key={category.categoryId}>
-              <td>{category.categoryId}</td>
-              <td>{category.categoryName}</td>
-              <td>
-                <button onClick={() => handleDeleteCategory(category.categoryId)}>Delete</button>
-              </td>
+        <h3>All Categories</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Category ID</th>
+              <th>Category Name</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {categories.map((category) => (
+              <tr key={category.categoryId}>
+                <td>{category.categoryId}</td>
+                <td>{category.categoryName}</td>
+                <td>
+                  <button onClick={() => handleDeleteCategory(category.categoryId)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

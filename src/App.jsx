@@ -16,6 +16,7 @@ import LowLevels from './pages/LowLevels';
 import PurchaseOrders from './pages/PurchaseOrders';
 import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
 import HighLevels from './pages/HighLevels';
+import UploadedImages from './pages/UploadedImages';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -46,6 +47,7 @@ function App() {
               path="/salesOrders"
               element={
                 <SalesOrders
+                setIsUpdating={setIsUpdating}
                   warehouseId={warehouseId}
                   onEditOrder={handleEditOrder}
                 />
@@ -93,6 +95,7 @@ function App() {
       {/* prerit here  */}
       <Route path="/addproduct" element={<AddProduct warehouseId={warehouseId} />} /> 
       <Route path="/products/:productId" element={<ProductDetails />} />
+      <Route path="/products/:productId/images" element={<UploadedImages />} />
       {/* prerit here  */}
       <Route path="/categories" element={<Category />} />
       <Route path="/suppliers" element={<Suppliers />} />

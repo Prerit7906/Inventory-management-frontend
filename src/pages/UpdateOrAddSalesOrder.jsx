@@ -41,7 +41,7 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
         setAlertMessage(`Stock of ${productData.productName} is more than maximum level, Couldn't place order`);
         setTimeout(() => {
           setAlertMessage('');
-        }, 3000);
+        }, 4000);
         return;
       }
 
@@ -84,8 +84,14 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
   };
 
   return (
+    <>
+      {alertMessage && (
+        <div id="alertMessage">
+          {alertMessage}
+          <div id="progressBar"></div>
+        </div>
+      )}
     <div className='updateSalesOrder'>
-      {alertMessage && <p>{alertMessage}</p>}
       <h2>{isUpdating ? 'Update' : 'Add'} Sales Order</h2>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
@@ -109,6 +115,7 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
         </div>
       </form>
     </div>
+    </>
   );
 };
 

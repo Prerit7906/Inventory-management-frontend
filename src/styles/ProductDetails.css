@@ -30,7 +30,7 @@
   border: 1px solid #ccc;
   background-color: #f9f9f9;
   position: relative;
-  height: 75%;
+  /* height: 75%; */
 }
 
 /* Styling for the delete button */
@@ -72,5 +72,13 @@
   flex-direction: column;
   position: absolute;
   height: 100%;
-
+  width: 70%;
+}
+.uploadImageMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0.6rem;
+  cursor: pointer;
 }

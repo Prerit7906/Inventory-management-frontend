@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "../styles/ProductDetails.css";
 import { imageDb } from "../firebase/firebase.js";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import UploadedImages from "./UploadedImages"; // New component for displaying images
+import { faUpload, faBarcode } from "@fortawesome/free-solid-svg-icons";
+import Barcode from "react-barcode";
 
-const ProductDetails = () => {
+const ProductDetails = ({ setValue }) => {
   const { productId } = useParams();
   const numericProductId = Number(productId);
   const [product, setProduct] = useState(null);
@@ -18,51 +18,13 @@ const ProductDetails = () => {
     unitsInStocks: "",
   });
   const [alertMessage, setAlertMessage] = useState("");
-  const navigate = useNavigate();
-
   const [img, setImg] = useState(null);
   const [imgUrl, setImgUrl] = useState([]);
   const [fileName, setFileName] = useState("");
+  const [showBarcode, setShowBarcode] = useState(false);
+  const navigate = useNavigate();
 
-  const handleClick = () => {
-    if (img !== null) {
-      const imgRef = ref(imageDb, `files/${productId}/${v4()}`);
-      uploadBytes(imgRef, img).then((value) => {
-        console.log(value);
-        getDownloadURL(value.ref).then((url) => {
-          setImgUrl((data) => [...data, url]);
-           setAlertMessage("Image Uploaded successfully :)");
-      setTimeout(() => {
-        setAlertMessage('');
-      }, 5000);
-          setFileName("");
-          setImg(null); // Clear the selected image after upload
-        });
-      });
-    }
-  };
-
-  const fetchImages = async () => {
-    try {
-      const listRef = ref(imageDb, `files/${productId}`);
-      const images = await listAll(listRef);
-      const urls = await Promise.all(
-        images.items.map(async (item) => {
-          const url = await getDownloadURL(item);
-          return url;
-        })
-      );
-      setImgUrl(urls);
-     
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchImages();
-  }, [productId]);
-
+  // Fetch product details
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -83,6 +45,28 @@ const ProductDetails = () => {
     fetchProductDetails();
   }, [numericProductId]);
 
+  // Fetch images
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const listRef = ref(imageDb, `files/${productId}`);
+        const images = await listAll(listRef);
+        const urls = await Promise.all(
+          images.items.map(async (item) => {
+            const url = await getDownloadURL(item);
+            return url;
+          })
+        );
+        setImgUrl(urls);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, [productId]);
+
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -91,17 +75,17 @@ const ProductDetails = () => {
     }));
   };
 
+  // Handle form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if(formData.unitsInStocks>=3000 || formData.unitsInStocks<=0){
-      setAlertMessage("This stock cann't be added");
-        setTimeout(() => {
-          setAlertMessage('');
-        }, 4000);      
-        return;
+    if (formData.unitsInStocks >= 3000 || formData.unitsInStocks <= 0) {
+      setAlertMessage("This stock can't be added");
+      setTimeout(() => {
+        setAlertMessage("");
+      }, 4000);
+      return;
     }
     try {
-      console.log(product);
       const response = await fetch(
         `http://localhost:9090/api/v1.0/products/all/update/product/${numericProductId}`,
         {
@@ -116,14 +100,12 @@ const ProductDetails = () => {
           }),
         }
       );
-      console.log(product);
 
       if (response.ok) {
-        console.log(response);
         setIsEditing(false);
         setAlertMessage("Product updated successfully :)");
         setTimeout(() => {
-          setAlertMessage('');
+          setAlertMessage("");
           navigate("/viewproducts");
         }, 4000);
       } else {
@@ -134,6 +116,7 @@ const ProductDetails = () => {
     }
   };
 
+  // Handle delete
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
@@ -145,16 +128,14 @@ const ProductDetails = () => {
         );
 
         if (response.ok) {
-          setAlertMessage(
-            `Product deleted successfully!!`
-          );
+          setAlertMessage("Product deleted successfully!!");
           setTimeout(() => {
             setAlertMessage("");
-            navigate("/viewproducts"); // Redirect to product listing or another relevant page
+            navigate("/viewproducts");
           }, 4000);
         } else {
           setAlertMessage(
-            `You cannot delete this product because it is ordered`
+            "You cannot delete this product because it is ordered"
           );
           setTimeout(() => {
             setAlertMessage("");
@@ -164,6 +145,24 @@ const ProductDetails = () => {
       } catch (error) {
         console.error("Error deleting product:", error);
       }
+    }
+  };
+
+  // Handle image upload
+  const handleClick = () => {
+    if (img !== null) {
+      const imgRef = ref(imageDb, `files/${productId}/${v4()}`);
+      uploadBytes(imgRef, img).then((value) => {
+        getDownloadURL(value.ref).then((url) => {
+          setImgUrl((data) => [...data, url]);
+          setAlertMessage("Image uploaded successfully :)");
+          setTimeout(() => {
+            setAlertMessage("");
+          }, 5000);
+          setFileName("");
+          setImg(null); // Clear the selected image after upload
+        });
+      });
     }
   };
 
@@ -180,7 +179,19 @@ const ProductDetails = () => {
         </div>
       )}
       <div className="product-container">
-        <h2>Product Details</h2>
+        <div id="topHeader">
+
+        <div 
+          onClick={() => {
+            setShowBarcode(true);
+            setValue(product.productId.toString());
+            navigate(`/products/${productId}/barcode`);
+          }}
+          >
+          <FontAwesomeIcon style={{width:"2rem",height:"2rem"}} icon={faBarcode} />
+        </div>
+          <h2>Product Details</h2>
+          </div>
         {isEditing ? (
           <form onSubmit={handleFormSubmit} className="edit-form">
             <div className="form-group">
@@ -246,45 +257,50 @@ const ProductDetails = () => {
               </tbody>
             </table>
             <div className="uploadImageMain">
-              <button style={{ backgroundColor: "#a72222" }} onClick={() => navigate("/viewproducts")}>Go Back</button>
+              <button
+                style={{ backgroundColor: "#a72222" }}
+                onClick={() => navigate("/viewproducts")}
+              >
+                Go Back
+              </button>
               <button onClick={() => setIsEditing(true)}>Edit</button>
               <button onClick={handleDelete} className="delete-button">
                 Delete
               </button>
-            </div>
+              </div>
+              <div className="uploadImageMain">
+                <label htmlFor="uploadImg">
+                  <FontAwesomeIcon
+                    icon={faUpload}
+                    size="2x"
+                    style={{
+                      color: "black",
+                      padding: "0.2rem",
+                      border: "4px solid black",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </label>
+                <input
+                  style={{ display: "none" }}
+                  id="uploadImg"
+                  type="file"
+                  onChange={(e) => {
+                    setImg(e.target.files[0]);
+                    setFileName(e.target.files[0]?.name || "");
+                  }}
+                />
+                {fileName && <span>{fileName}</span>}
+                <button onClick={handleClick} disabled={!img}>
+                  Upload
+                </button>
+                <Link to={`/products/${productId}/images`}>
+                  <button>View Uploaded Images</button>
+                </Link>
+              </div>
           </>
         )}
-        <div className="uploadImageMain">
-          <label htmlFor="uploadImg">
-            <FontAwesomeIcon
-              icon={faUpload}
-              size="2x"
-              style={{
-                color: "black",
-                padding: "0.2rem",
-                border: "4px solid black",
-                borderRadius: "8px",
-              }}
-            />{" "}
-          </label>
-          <input
-            style={{ display: "none" }}
-            id="uploadImg"
-            type="file"
-            onChange={(e) => {
-              setImg(e.target.files[0]);
-              setFileName(e.target.files[0]?.name || "");
-            }}
-          />
-          {fileName && <span>{fileName}</span>}
-          <button onClick={handleClick} disabled={!img}>Upload</button>
-          <Link to={`/products/${productId}/images`}>
-            <button>View Uploaded Images</button>
-          </Link>
-        </div>
       </div>
-
-      
     </div>
   );
 };

@@ -18,6 +18,7 @@ import PurchaseOrders from "./pages/PurchaseOrders";
 import UpdateOrAddPurchaseOrder from "./pages/UpdateOrAddPurchaseOrder";
 import HighLevels from "./pages/HighLevels";
 import UploadedImages from "./pages/UploadedImages";
+import Barcodes from "./pages/Barcodes";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -26,7 +27,7 @@ function App() {
   const [isUpdating1, setIsUpdating1] = useState(false);
   const [order, setOrder] = useState(null);
   const [order1, setOrder1] = useState(null);
-
+  const [value, setValue] = useState('');
   const handleEditOrder = (order) => {
     setOrder(order);
     setIsUpdating(true);
@@ -101,6 +102,10 @@ function App() {
               element={<ViewProducts warehouseId={warehouseId} />}
             ></Route>
             <Route
+              path="/products/:productId/barcode"
+              element={<Barcodes value={value} />}
+            ></Route>
+            <Route
               path="/lowproducts"
               element={<LowLevels warehouseId={warehouseId} />}
             ></Route>
@@ -113,7 +118,7 @@ function App() {
               path="/addproduct"
               element={<AddProduct warehouseId={warehouseId} />}
             />
-            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/products/:productId" element={<ProductDetails setValue={setValue} />} />
             <Route
               path="/products/:productId/images"
               element={<UploadedImages />}

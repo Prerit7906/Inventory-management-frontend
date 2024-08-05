@@ -54,7 +54,7 @@ const ViewProducts = (props) => {
             <td>{product.productId}</td>
             <td>{product.productName}</td>
             <td>{product.description}</td>
-            <td>${product.unitPrice}</td>
+            <td>&#8377;{product.unitPrice}</td>
             <td>{product.unitsInStocks}</td>
             <td>
             <Link to={`/products/${product.productId}`}>View Details</Link>

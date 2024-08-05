@@ -8,6 +8,12 @@ const Navbar = () => {
   return (
     <div className='navbarMain'>
       <Link 
+        to={'/home'} 
+        className={location.pathname === '/home' ? 'active' : ''}
+      >
+        Home
+      </Link>
+      <Link 
         to={'/categories'} 
         className={location.pathname === '/categories' ? 'active' : ''}
       >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../styles/SalesOrders.css"
 
 const SalesOrders = ({ warehouseId ,onEditOrder, setIsUpdating }) => {
@@ -62,35 +62,39 @@ const SalesOrders = ({ warehouseId ,onEditOrder, setIsUpdating }) => {
         <button onClick={handleAdd}>Add a Sales Order</button>
         <div>
           <h3>List of Sales Orders</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Product Id</th>
-                <th>Category</th>
-                <th>Order Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {salesOrders.map(order => (
-                <tr key={order.salesOrderId}>
-                  <td>{order.salesOrderId}</td>
-                  <td>{order.product.productName}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.product.productId}</td>
-                  <td>{order.product.category.categoryName}</td>
-                  <td>{order.orderDate}</td>
-                  <td>
-                    <button onClick={() => handleEdit(order)}>Edit</button>
-                    <button onClick={() => handleDelete(order.salesOrderId)}>Delete</button>
-                  </td>
+          {salesOrders.length === 0 ? (
+            <p>No sales orders available.</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Product Id</th>
+                  <th>Category</th>
+                  <th>Order Date</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {salesOrders.map(order => (
+                  <tr key={order.salesOrderId}>
+                    <td>{order.salesOrderId}</td>
+                    <td>{order.product.productName}</td>
+                    <td>{order.quantity}</td>
+                    <td>{order.product.productId}</td>
+                    <td>{order.product.category.categoryName}</td>
+                    <td>{order.orderDate}</td>
+                    <td>
+                      <button onClick={() => handleEdit(order)}>Edit</button>
+                      <button id='deleteBtn' onClick={() => handleDelete(order.salesOrderId)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>

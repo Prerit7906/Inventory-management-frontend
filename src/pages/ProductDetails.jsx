@@ -222,7 +222,7 @@ const ProductDetails = () => {
                 </tr>
                 <tr>
                   <th>Price</th>
-                  <td>${product.unitPrice.toFixed(2)}</td>
+                  <td>&#8377;{product.unitPrice.toFixed(2)}</td>
                 </tr>
                 <tr>
                   <th>Stock</th>

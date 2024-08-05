@@ -1,47 +1,128 @@
+/* Alert message styling */
 #alertMessage {
-    position: fixed;
+  position: fixed;
+  top: -100px;
+  left: 0;
+  right: 0;
+  color: Green;
+  background-color: #b5ddb7;
+  border-radius: 3px;
+  padding: 20px 0;
+  text-align: center;
+  z-index: 1000;
+  animation: slideDownUp 4s ease-in-out;
+}
+
+@keyframes slideDownUp {
+  0% {
     top: -100px;
-    left: 0;
-    right: 0;
-    color: Green;
-    background-color: #b5ddb7;;
-    border-radius: 3px;
-    padding: 20px 0;
-    text-align: center;
-    z-index: 1000;
-    animation: slideDownUp 4s ease-in-out;
   }
-  
-  @keyframes slideDownUp {
-    0% {
-      top: -100px;
-    }
-    10% {
-      top: 0;
-    }
-    90% {
-      top: 0;
-    }
-    100% {
-      top: -100px;
-    }
+  10% {
+    top: 0;
   }
-  
-  #progressBar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 5px;
-    background-color: Green;
-    animation: decrease 4s linear;
+  90% {
+    top: 0;
   }
-  
-  @keyframes decrease {
-    0% {
-      width: 100%;
-    }
-    100% {
-      width: 0%;
-    }
+  100% {
+    top: -100px;
   }
-  
+}
+
+#progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  background-color: Green;
+  animation: decrease 4s linear;
+}
+
+@keyframes decrease {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+/* Table styling */
+.categoryMain table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.categoryMain th, .categoryMain td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.categoryMain th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+}
+
+.categoryMain tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.categoryMain tr:hover {
+  background-color: #ddd;
+}
+
+.categoryMain th, .categoryMain td {
+  transition: background-color 0.3s ease;
+}
+
+.categoryMain th {
+  cursor: pointer;
+}
+
+.categoryMain button {
+  background-color: #f5c6cb;
+    color: #721c24;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.categoryMain button:hover {
+  background-color: #721c24;
+  color:  #f5c6cb;
+}
+
+/* Form styling */
+.categoryMain form {
+  margin-bottom: 20px;
+}
+
+.categoryMain input[type="text"] {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: border-color 0.3s ease;
+}
+
+.categoryMain input[type="text"]:focus {
+  border-color: #4CAF50;
+}
+
+.categoryMain button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.categoryMain button[type="submit"]:hover {
+  background-color: #45a049;
+}

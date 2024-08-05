@@ -1,18 +1,72 @@
-
-.salesOrdersMain div{
-    display: flex;
+/* Main container styling */
+.salesOrdersMain {
     text-align: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.salesOrdersMain a{
-    padding: 10px 15px;
+    padding: 20px;
+  }
+  
+  .salesOrdersMain button {
+    background-color: #4CAF50;
     color: white;
-    background-color: green;
-    border-radius: 10px;
-    position: relative;
-    top: 15px;
-}
-.salesOrdersMain div{
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .salesOrdersMain button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Table styling */
+  .salesOrdersMain table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
+  }
+  
+  .salesOrdersMain th, .salesOrdersMain td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .salesOrdersMain th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .salesOrdersMain tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* .salesOrdersMain tr:hover {
+    background-color: #ddd;
+  } */
+  
+  .salesOrdersMain th, .salesOrdersMain td {
+    transition: background-color 0.3s ease;
+  }
+  
+  .salesOrdersMain th {
+    cursor: pointer;
+  }
+  
+#deleteBtn{
+    background-color: #f5c6cb;
+    color: #721c24;
+    padding: 8px 15px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
+#deleteBtn:hover{
+    background-color: #721c24;
+  color:  #f5c6cb;
+}
+  

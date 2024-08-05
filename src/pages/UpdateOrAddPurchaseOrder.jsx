@@ -50,8 +50,8 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
         updatedStock = parseInt(currentStock) + parseInt(quantity);
       }
 
-      if (updatedStock >= 2500) {
-        setMaxStockAlert(`Stock of ${productData.productName} is more than maximum level, Couldn't place order`);
+      if (updatedStock >= 3000) {
+        setMaxStockAlert(`${productData.productName} is more than maximum level, Couldn't place order`);
         setTimeout(() => {
           setMaxStockAlert('');
         }, 4000);

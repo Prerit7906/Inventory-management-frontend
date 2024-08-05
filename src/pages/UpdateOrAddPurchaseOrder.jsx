@@ -9,6 +9,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
   const [productId, setProductId] = useState(order?.product?.productId || '');
   const [supplierId, setSupplierId] = useState(order?.suppliers?.supplierId || '');
   const [maxStockAlert, setMaxStockAlert] = useState(null);
+ 
 
   useEffect(() => {
     fetchProducts();
@@ -37,6 +38,25 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const res = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
+      const productData = await res.json();
+      const currentStock = productData.unitsInStocks;
+
+      let updatedStock;
+      if (isUpdating) {
+        const stockDifference = parseInt(quantity) - parseInt(order?.quantity || 0);
+        updatedStock = parseInt(currentStock) + parseInt(stockDifference);
+      } else {
+        updatedStock = parseInt(currentStock) + parseInt(quantity);
+      }
+
+      if (updatedStock >= 2500) {
+        setMaxStockAlert(`Stock of ${productData.productName} is more than maximum level, Couldn't place order`);
+        setTimeout(() => {
+          setMaxStockAlert('');
+        }, 4000);
+        return;
+      }
 
     try {
       const url = isUpdating
@@ -62,40 +82,6 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
         alert(`Failed to ${isUpdating ? 'update' : 'add'} the order`);
         throw new Error("Failed to submit form");
       }
-
-      // Update product stock based on the action (add or update)
-      const res = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
-      const productData = await res.json();
-      const currentStock = productData.unitsInStocks;
-
-      let updatedStock;
-      if (isUpdating) {
-        const stockDifference = parseInt(quantity) - parseInt(order?.quantity || 0);
-        updatedStock = parseInt(currentStock) + parseInt(stockDifference);
-      } else {
-        updatedStock = parseInt(currentStock) + parseInt(quantity);
-      }
-
-      if (updatedStock > 2500) {
-        const res1 = await fetch(`http://localhost:9090/api/v1.0/products/all/${productId}`);
-        const d1 = await res1.json();
-        try {
-          const response = await fetch(`http://localhost:9090/api/v1.0/purchase/${productId}`, {
-            method: 'DELETE'
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to delete purchase order");
-          }
-        } catch (error) {
-          console.error("Error deleting purchase order:", error);
-        }
-
-        setMaxStockAlert(d1.productName);
-        setTimeout(() => {
-          setMaxStockAlert(null);
-        }, 3000);
-      } else {
         const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
           method: 'PUT'
         });
@@ -110,8 +96,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
         onSave();
         navigate('/purchaseOrders');
         setIsUpdating(false);
-      }
-    } catch (error) {
+      }catch (error) {
       console.error("Error submitting form:", error);
     }
   };

@@ -93,6 +93,13 @@ const ProductDetails = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if(formData.unitsInStocks>=3000 || formData.unitsInStocks<=0){
+      setAlertMessage("This stock cann't be added");
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);      
+        return;
+    }
     try {
       console.log(product);
       const response = await fetch(

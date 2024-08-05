@@ -123,7 +123,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
             <option value="">Select a supplier</option>
             {suppliers.map(supplier => (
               <option key={supplier.supplierId} value={supplier.supplierId}>
-                {supplier.supplierName} (ID: {supplier.supplierId})
+                {supplier.supplierName}
               </option>
             ))}
           </select>
@@ -134,7 +134,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
             <option value="">Select a product</option>
             {products.map(product => (
               <option key={product.productId} value={product.productId}>
-                {product.productName} (ID: {product.productId})
+                {product.productName}
               </option>
             ))}
           </select>

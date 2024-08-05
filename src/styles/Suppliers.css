@@ -1,0 +1,99 @@
+/* Container styling */
+#suppliersContainer {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #suppliersContainer h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Form styling */
+  #suppliersContainer form {
+    margin-bottom: 20px;
+  }
+  
+  #suppliersContainer form input,
+  #suppliersContainer form select {
+    padding: 8px;
+    margin: 0 10px 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  #suppliersContainer form button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #suppliersContainer form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Table styling */
+  #suppliersContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #suppliersContainer th,
+  #suppliersContainer td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #suppliersContainer th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  #suppliersContainer tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  #suppliersContainer th,
+  #suppliersContainer td {
+    transition: background-color 0.3s ease;
+  }
+  
+  #suppliersContainer th {
+    cursor: pointer;
+  }
+  
+  /* Button styling */
+  #suppliersContainer button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #suppliersContainer .editButton {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  #suppliersContainer .editButton:hover {
+    background-color: #45a049;
+  }
+  
+  #suppliersContainer .deleteButton {
+    background-color: #f5c6cb;
+    color: #721c24;
+    margin-left: 5px;
+  }
+  
+  #suppliersContainer .deleteButton:hover {
+    background-color: #721c24;
+    color:  #f5c6cb;
+  }
+  

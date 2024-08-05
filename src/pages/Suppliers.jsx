@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/Suppliers.css';
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -7,7 +8,6 @@ const Suppliers = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alertMessage, setAlertMessage] = useState('');
-
 
   useEffect(() => {
     fetchSuppliers();
@@ -58,10 +58,10 @@ const Suppliers = () => {
         },
         body: JSON.stringify(body),
       });
-      setAlertMessage(`Supplier ${isEdit?'updated':'added'} successfully :)`);
-        setTimeout(() => {
-          setAlertMessage('');
-        }, 4000);
+      setAlertMessage(`Supplier ${isEdit ? 'updated' : 'added'} successfully :)`);
+      setTimeout(() => {
+        setAlertMessage('');
+      }, 4000);
       fetchSuppliers();
       setForm({ supplierName: '', phone: '', category: '' });
       setIsEdit(false);
@@ -83,9 +83,22 @@ const Suppliers = () => {
 
   const handleDelete = async (supplierId) => {
     try {
-      await fetch(`http://localhost:9090/api/v1.0/suppliers/all/${supplierId}`, {
+      const response=await fetch(`http://localhost:9090/api/v1.0/suppliers/all/${supplierId}`, {
         method: 'DELETE',
       });
+      if(response.ok){
+
+        setAlertMessage('Product deleted successfully!!');
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
+      }
+      else{
+        setAlertMessage("You cann't delete this supplier :(");
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
+      }
       fetchSuppliers();
     } catch (error) {
       console.error('Error deleting supplier:', error);
@@ -100,61 +113,61 @@ const Suppliers = () => {
           <div id="progressBar"></div>
         </div>
       )}
-    <div>
-      <h1>Suppliers</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="supplierName"
-          value={form.supplierName}
-          onChange={handleChange}
-          placeholder="Supplier Name"
-          required
-        />
-        <input
-          type="text"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="Phone"
-          required
-        />
-        <select name="category" value={form.category} onChange={handleChange} required>
-          <option value="" disabled>Select Category</option>
-          {categories.map((category) => (
-            <option key={category.categoryId} value={category.categoryId}>
-              {category.categoryName}
-            </option>
-          ))}
-        </select>
-        <button type="submit">{isEdit ? 'Update' : 'Add'}</button>
-      </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Supplier ID</th>
-            <th>Supplier Name</th>
-            <th>Phone</th>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {suppliers.map((supplier) => (
-            <tr key={supplier.supplierId}>
-              <td>{supplier.supplierId}</td>
-              <td>{supplier.supplierName}</td>
-              <td>{supplier.phone}</td>
-              <td>{supplier.category.categoryName}</td>
-              <td>
-                <button onClick={() => handleEdit(supplier)}>Edit</button>
-                <button onClick={() => handleDelete(supplier.supplierId)}>Delete</button>
-              </td>
+      <div id="suppliersContainer">
+        <h1>Suppliers</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="supplierName"
+            value={form.supplierName}
+            onChange={handleChange}
+            placeholder="Supplier Name"
+            required
+          />
+          <input
+            type="text"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="Phone"
+            required
+          />
+          <select name="category" value={form.category} onChange={handleChange} required>
+            <option value="" disabled>Select Category</option>
+            {categories.map((category) => (
+              <option key={category.categoryId} value={category.categoryId}>
+                {category.categoryName}
+              </option>
+            ))}
+          </select>
+          <button type="submit">{isEdit ? 'Update' : 'Add'}</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>Supplier ID</th>
+              <th>Supplier Name</th>
+              <th>Phone</th>
+              <th>Category</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {suppliers.map((supplier) => (
+              <tr key={supplier.supplierId}>
+                <td>{supplier.supplierId}</td>
+                <td>{supplier.supplierName}</td>
+                <td>{supplier.phone}</td>
+                <td>{supplier.category.categoryName}</td>
+                <td>
+                  <button className="editButton" onClick={() => handleEdit(supplier)}>Edit</button>
+                  <button className="deleteButton" onClick={() => handleDelete(supplier.supplierId)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

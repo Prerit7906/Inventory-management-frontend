@@ -10,7 +10,7 @@ const PurchaseOrders = ({ warehouseId ,onEditOrder}) => {
 
   const fetchPurchaseOrders = async () => {
     try {
-      const response = await fetch('http://localhost:9090/api/v1.0/purchase/all');
+      const response = await fetch(`http://localhost:9090/api/v1.0/purchase/all/purchases/${warehouseId}`);
       const data = await response.json();
       setPurchaseOrders(data);
     } catch (error) {

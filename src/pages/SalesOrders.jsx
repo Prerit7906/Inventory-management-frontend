@@ -13,7 +13,7 @@ const SalesOrders = ({ warehouseId ,onEditOrder, setIsUpdating }) => {
 
   const fetchSalesOrders = async () => {
     try {
-      const response = await fetch('http://localhost:9090/api/v1.0/salesOrders/all');
+      const response = await fetch(`http://localhost:9090/api/v1.0/salesOrders/all/sales/${warehouseId}`);
       const data = await response.json();
       setSalesOrders(data);
     } catch (error) {

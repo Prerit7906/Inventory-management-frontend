@@ -6,6 +6,8 @@ const Suppliers = () => {
   const [form, setForm] = useState({ supplierName: '', phone: '', category: '' });
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [alertMessage, setAlertMessage] = useState('');
+
 
   useEffect(() => {
     fetchSuppliers();
@@ -56,6 +58,10 @@ const Suppliers = () => {
         },
         body: JSON.stringify(body),
       });
+      setAlertMessage(`Supplier ${isEdit?'updated':'added'} successfully :)`);
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
       fetchSuppliers();
       setForm({ supplierName: '', phone: '', category: '' });
       setIsEdit(false);
@@ -87,6 +93,13 @@ const Suppliers = () => {
   };
 
   return (
+    <>
+      {alertMessage && (
+        <div id="alertMessage">
+          {alertMessage}
+          <div id="progressBar"></div>
+        </div>
+      )}
     <div>
       <h1>Suppliers</h1>
       <form onSubmit={handleSubmit}>
@@ -142,6 +155,7 @@ const Suppliers = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

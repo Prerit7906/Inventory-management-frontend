@@ -59,7 +59,10 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
       });
 
       if (!response.ok) {
-        alert(`Failed to ${isUpdating ? 'update' : "add"} the order`);
+      setAlertMessage(`Failed to ${isUpdating ? 'update' : "add"} the order`);
+      setTimeout(() => {
+        setAlertMessage('');
+        }, 3000);
         throw new Error("Failed to submit form");
       }
 
@@ -75,9 +78,12 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
       setQuantity('');
       setProductId('');
       onSave();
-      navigate('/salesOrders');
-      alert(`Order ${isUpdating ? 'updated' : "added"} successfully`);
-      setIsUpdating(false);
+      setAlertMessage(`Order ${isUpdating ? 'updated' : "added"} successfully`);
+      setTimeout(() => {
+        setAlertMessage('');
+        navigate('/salesOrders');
+        setIsUpdating(false);
+        }, 3000);
     } catch (error) {
       console.error("Error submitting form:", error);
     }

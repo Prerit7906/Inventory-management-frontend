@@ -13,6 +13,7 @@ import Category from './pages/Category';
 import Signup from './pages/Signup';
 import Suppliers from './pages/Suppliers';
 import LowLevels from './pages/LowLevels';
+import AlertMessages from './pages/AlertMessages';
 import PurchaseOrders from './pages/PurchaseOrders';
 import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
 import HighLevels from './pages/HighLevels';
@@ -43,6 +44,7 @@ function App() {
       <MainLayout warehouseName={warehouseName} setIsLoggedIn={setIsLoggedIn}  warehouseId={warehouseId}>
       <Routes>
       <Route path='/home'element={<Home/>}/>
+      <Route path='/notifications'element={<AlertMessages warehouseId={warehouseId}/>}/>
       <Route
               path="/salesOrders"
               element={

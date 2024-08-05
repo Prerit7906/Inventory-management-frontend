@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ViewProducts.css';
+import '../styles/LowAndHighLevel.css'
 import ProductsDetails from './ProductDetails';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
 const HighLevels = (props) => {
   const [highProducts, setHighProducts] = useState([]);
   const [minimumLevel, setMinimumLevel] = useState(2500);
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
+  const location=useLocation();
 
   useEffect(() => {
     fetchProducts();
@@ -16,7 +18,7 @@ const HighLevels = (props) => {
   const fetchProducts = async () => {
     try {
       console.log("warehouse id : " + props.warehouseId);
-      const response = await fetch(`http://localhost:9090/api/v1.0/products/all/warehouse/${props.warehouseId}/${minimumLevel}`);
+      const response = await fetch(`http://localhost:9090/api/v1.0/products/all/warehouse/highlevel/${props.warehouseId}/${minimumLevel}`);
       const data = await response.json();
       setHighProducts(data);
     } catch (error) {
@@ -35,10 +37,20 @@ const HighLevels = (props) => {
 
   return (
     <div className="product-container">
+      <div>
+        <Link 
+        to={"/lowproducts"}
+        className={location.pathname === '/lowproducts' ? 'active' : ''}
+        >Low level products</Link>
+        <Link 
+        to={"/highproducts"}
+        className={location.pathname === '/highproducts' ? 'active' : ''}
+        >High level products</Link>
+      </div>
       <form onSubmit={handleSubmit}>
-        <h4>Minimum Inventory Level : {minimumLevel}</h4>
+        <h4>Maximum Inventory Level : {minimumLevel}</h4>
         <label>
-          Enter Minimum Level:
+          Enter Maximum Level:
           <input
             type="text"
             value={inputValue}

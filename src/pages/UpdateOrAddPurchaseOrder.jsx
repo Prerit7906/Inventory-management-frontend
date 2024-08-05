@@ -133,7 +133,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
           <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
         </div>
         <div>
-          <div className='form-group'>
+          <div id='purchaseOrderBtns' className='form-group'>
             <button id='go-back-button' type="button" onClick={() => { onCancel(); navigate('/purchaseOrders'); }}>Cancel</button>
             <button type="submit">{isUpdating ? 'Update' : 'Add'} Purchase Order</button>
           </div>

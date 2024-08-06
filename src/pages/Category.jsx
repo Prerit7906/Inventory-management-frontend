@@ -61,7 +61,7 @@ const Category = () => {
         setTimeout(() => {
           setAlertMessage('');
         }, 4000);
-        fetchCategories(); // Refresh the categories list
+        fetchCategories(); 
       } else {
         setAlertMessage(`You cannot delete this category because a product of this category is present`);
         setTimeout(() => {

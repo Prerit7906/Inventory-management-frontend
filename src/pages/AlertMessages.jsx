@@ -12,7 +12,7 @@ const AlertMessages = ({ warehouseId }) => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setProducts(data.reverse()); // Reverse the product list
+        setProducts(data.reverse());
       } catch (error) {
         console.error("Error fetching products", error);
       }

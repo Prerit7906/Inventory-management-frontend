@@ -116,7 +116,7 @@ const ProductDetails = ({ setValue }) => {
     }
   };
 
-  // Handle delete
+ 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
@@ -148,7 +148,6 @@ const ProductDetails = ({ setValue }) => {
     }
   };
 
-  // Handle image upload
   const handleClick = () => {
     if (img !== null) {
       const imgRef = ref(imageDb, `files/${productId}/${v4()}`);

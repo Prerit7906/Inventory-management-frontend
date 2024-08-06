@@ -106,7 +106,7 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
             <option value="">Select a product</option>
             {products.map(product => (
               <option key={product.productId} value={product.productId}>
-                {product.productName} (ID: {product.productId})
+                {product.productName}
               </option>
             ))}
           </select>

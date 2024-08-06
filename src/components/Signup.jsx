@@ -10,6 +10,7 @@ const Signup = (props) => {
     userName: '',
     password: ''
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,12 +53,13 @@ const Signup = (props) => {
           }
     }
 else{
-    alert("Password and confirm password didn't match")
+    setErrorMessage("Password and confirm password didn't match!!");
 }
   };
 
   return (
     <div className="login-container">
+      <p style={{color:"red", fontSize:"0.8rem"}} >{errorMessage}</p>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

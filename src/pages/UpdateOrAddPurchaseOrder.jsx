@@ -9,7 +9,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
   const [productId, setProductId] = useState(order?.product?.productId || '');
   const [supplierId, setSupplierId] = useState(order?.suppliers?.supplierId || '');
   const [maxStockAlert, setMaxStockAlert] = useState(null);
- 
+  const [alertMessage,setAlertMessage]= useState('');
 
   useEffect(() => {
     fetchProducts();
@@ -51,9 +51,9 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
       }
 
       if (updatedStock >= 3000) {
-        setMaxStockAlert(`${productData.productName} is more than maximum level, Couldn't place order`);
+        setAlertMessage(`${productData.productName} is more than maximum level, Couldn't place order`);
         setTimeout(() => {
-          setMaxStockAlert('');
+          setAlertMessage('');
         }, 4000);
         return;
       }
@@ -79,7 +79,10 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
       });
 
       if (!response.ok) {
-        alert(`Failed to ${isUpdating ? 'update' : 'add'} the order`);
+        setAlertMessage(`Failed to ${isUpdating ? 'update' : 'add'} the order`);
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);
         throw new Error("Failed to submit form");
       }
         const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
@@ -89,21 +92,29 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
         if (!updateStockResponse.ok) {
           throw new Error("Failed to update product stock");
         }
-        alert(`Order ${isUpdating ? 'updated' : 'added'} successfully`);
-
-        setQuantity('');
-        setProductId('');
-        onSave();
-        navigate('/purchaseOrders');
-        setIsUpdating(false);
+        setAlertMessage(`Order ${isUpdating ? 'updated' : 'added'} successfully`);
+        setTimeout(() => {
+          setAlertMessage('');
+          setQuantity('');
+          setProductId('');
+          onSave();
+          navigate('/purchaseOrders');
+          setIsUpdating(false);
+        }, 4000);
       }catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
   return (
+    <>
+    {alertMessage && (
+        <div id="alertMessage">
+          {alertMessage}
+          <div id="progressBar"></div>
+        </div>
+      )}
     <div className='updateSalesOrder'>
-      {maxStockAlert && <p>Stock of {maxStockAlert} is more than maximum level, Couldn't place order</p>}
       <h2>{isUpdating ? 'Update' : 'Add'} Purchase Order</h2>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
@@ -112,7 +123,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
             <option value="">Select a supplier</option>
             {suppliers.map(supplier => (
               <option key={supplier.supplierId} value={supplier.supplierId}>
-                {supplier.supplierName} (ID: {supplier.supplierId})
+                {supplier.supplierName}
               </option>
             ))}
           </select>
@@ -123,7 +134,7 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
             <option value="">Select a product</option>
             {products.map(product => (
               <option key={product.productId} value={product.productId}>
-                {product.productName} (ID: {product.productId})
+                {product.productName}
               </option>
             ))}
           </select>
@@ -133,13 +144,14 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
           <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
         </div>
         <div>
-          <div className='form-group'>
+          <div id='purchaseOrderBtns' className='form-group'>
             <button id='go-back-button' type="button" onClick={() => { onCancel(); navigate('/purchaseOrders'); }}>Cancel</button>
             <button type="submit">{isUpdating ? 'Update' : 'Add'} Purchase Order</button>
           </div>
         </div>
       </form>
     </div>
+  </>
   );
 };
 

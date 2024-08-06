@@ -1,34 +1,34 @@
 .header {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  padding: 15px; /* Some padding */
-  text-align: center; /* Centered text */
-  font-size: 24px; /* Larger font size */
-  font-weight: bold; /* Bold text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  background-color: #4CAF50; 
+  color: white; 
+  padding: 15px;
+  text-align: center; 
+  font-size: 24px; 
+  font-weight: bold; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Center items vertically */
-  justify-content: space-between; /* Space between items */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  transition: background-color 0.3s; 
 }
 
 .header:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #45a049; 
 }
 
 .logo {
-  width: 50px; /* Set the width of the logo */
-  height: 50px; /* Set the height of the logo */
-  margin-right: 25px; /* Space between logo and text */
-  cursor: pointer; /* Change cursor to pointer */
+  width: 50px; 
+  height: 50px; 
+  margin-right: 25px;
+  cursor: pointer; 
 }
 
 .welcome-message {
-  font-size: 24px; /* Larger font size */
-  font-weight: bold; /* Bold text */
-  flex: 1; /* Flex-grow to take up remaining space */
-  text-align: center; /* Center the text */
+  font-size: 24px; 
+  font-weight: bold; 
+  flex: 1; 
+  text-align: center; 
 }
 
 .header button {
@@ -43,9 +43,9 @@
 }
 
 .notification-icon {
-  color: white; /* Set icon color to white */
-  margin-left: auto; /* Push the icon to the right */
-  margin-right: 10px; /* Add space between the icon and the button */
-  cursor: pointer; /* Change cursor to pointer */
+  color: white; 
+  margin-left: auto; 
+  margin-right: 10px; 
+  cursor: pointer; 
 }
 

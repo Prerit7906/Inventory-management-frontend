@@ -40,7 +40,7 @@ const PurchaseOrders = ({ warehouseId ,onEditOrder}) => {
 
   return (
     <div className='salesOrdersMain'>
-      <Link to="/purchaseOrders/addOrUpdate">Add a Puchase order</Link>
+      <button onClick={()=>{navigate('/purchaseOrders/addOrUpdate');}} >Add a Puchase order</button>
       <div>
         <h3>List of Purchase Orders</h3>
         <table>
@@ -68,7 +68,7 @@ const PurchaseOrders = ({ warehouseId ,onEditOrder}) => {
               <td>{order.date}</td>
               <td>
               {/* <button onClick={() => handleEdit(order)}>Edit</button> */}
-              <button onClick={() => handleDelete(order.purchaseId)}>Delete</button>
+              <button id='deleteBtn' onClick={() => handleDelete(order.purchaseId)}>Delete</button>
               </td>
             </tr>
           ))}

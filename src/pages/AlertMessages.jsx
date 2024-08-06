@@ -29,9 +29,9 @@ const AlertMessages = ({ warehouseId }) => {
       {products.map(product => (
         <div key={product.productId} className="alert-message">
           {product.unitsInStocks <= 500 ? (
-            <p>{product.productName}(Id: {product.productId}) is low in stock. Please fill it ASAP.</p>
+            <p>{product.productName} is low in stock. Please fill it ASAP.</p>
           ) : (
-            <p>{product.productName}(Id: {product.productId}) is overstocked. Please don't fill it now.</p>
+            <p>{product.productName} is overstocked. Please don't fill it now.</p>
           )}
           <button onClick={() => handleDelete(product.productId)}>Delete</button>
         </div>

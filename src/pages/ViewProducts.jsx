@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ViewProducts.css';
-import ProductsDetails from './ProductDetails';
 import { Link, useNavigate } from 'react-router-dom';
 
 const ViewProducts = (props) => {
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const navigate = useNavigate();
-  // const [productName, setProductName] = useState('');
-  // const [productDescription, setProductDescription] = useState('');
-  // const [unitPrice, setUnitPrice] = useState('');
-  // const [unitsInStock, setUnitsInStock] = useState('');
-  // const [categoryId, setCategoryId] = useState('');
-  // const [warehouseId, setWarehouseId] = useState('');
 
   useEffect(() => {
     fetchProducts();

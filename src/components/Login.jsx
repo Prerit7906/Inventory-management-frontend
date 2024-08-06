@@ -12,6 +12,7 @@ const Login = (props) => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [isUservalid,setIsUserValid]=useState(false);
+  const [errorMessage,setErrorMessage]=useState('');
 
   useEffect(()=>{
     FetchData("http://localhost:9090/api/v1.0/warehouses/all",setwareHouses);
@@ -32,8 +33,7 @@ const Login = (props) => {
   navigate('/home');
     }
     else{
-      // props.setIsLoggedIn(false);
-      alert("user is not valid");
+      setErrorMessage("Invalid credentials, please try again!!");
     }    
   }
   const handleWarehouseChange = (e) => {
@@ -46,6 +46,7 @@ const Login = (props) => {
 
   return (
     <div className="login-container">
+      <p style={{color:"red"}}>{errorMessage}</p>
       <h2>Login</h2>
       <form onSubmit={submitHandler}>
         <div className="form-group">

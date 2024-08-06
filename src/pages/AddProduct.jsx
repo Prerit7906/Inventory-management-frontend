@@ -44,6 +44,13 @@ const AddProduct = ({ warehouseId }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if(formData.unitsInStocks>=3000 || formData.unitsInStocks<=0){
+      setAlertMessage("This stock cann't be added");
+        setTimeout(() => {
+          setAlertMessage('');
+        }, 4000);      
+        return;
+    }
     try {
       // prerit here changed the warehouseID
       const response = await fetch(`http://localhost:9090/api/v1.0/products/all/${formData.categoryId}/${warehouseId}`, {
@@ -149,7 +156,7 @@ const AddProduct = ({ warehouseId }) => {
         </div>
         {/* prerit from here wrapped the buttons in div and some more */}
         <div className="form-group">
-          <button id='go-back-button' onClick={() => navigate('/viewProducts')} >Go Back</button>
+          <button id='go-back-button' onClick={() => navigate('/viewproducts')} >Go Back</button>
           <button type="submit">Add Product</button>
         </div>
         {/* to here  */}

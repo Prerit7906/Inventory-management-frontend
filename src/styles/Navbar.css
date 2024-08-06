@@ -1,0 +1,29 @@
+.navbarMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+    position: absolute;
+    width: 25%;
+    height: 80%;
+}
+a{
+    text-decoration: none;
+    color: Green;
+}
+.navbarMain a{
+    color: white;
+    background-color: #45a049;
+    width: 100%;
+    padding: 10px 0;
+}
+.navbarMain a:hover{
+    background-color: rgb(30, 133, 30);
+}
+.navbarMain a.active {
+    background-color: green;
+    margin-bottom: 2px;
+
+  }

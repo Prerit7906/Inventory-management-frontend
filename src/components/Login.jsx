@@ -1,33 +1,83 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Login.css'
+import FetchData from '../api/FetchData';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Login = (props) => {
-  const submitHandler=(e)=>{
+  const navigate=useNavigate();
+  const [warehouses,setwareHouses]=useState([]);
+  const [selectedWarehouse, setSelectedWarehouse] = useState('');
+  const [selectedWarehouseId, setSelectedWarehouseId] = useState('');
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [isUservalid,setIsUserValid]=useState(false);
+  const [errorMessage,setErrorMessage]=useState('');
+
+  useEffect(()=>{
+    FetchData("http://localhost:9090/api/v1.0/warehouses/all",setwareHouses);
+  },[])
+
+  const submitHandler=async (e)=>{
+    var responseData=null;
     e.preventDefault();
-    props.setIsLoggedIn(true);
+    const url=`http://localhost:9090/api/v1.0/warehouses/check-credentials/${selectedWarehouseId}/${userId}/${password}`;
+    console.log(url);
+    const response= await fetch(url);
+    responseData=await response.json();
+    if(responseData){
+      props.setIsLoggedIn(true);
+      setIsUserValid(true);
+    props.setWarehouseName(selectedWarehouse);
+  props.setWarehouseId(selectedWarehouseId);
+  navigate('/home');
+    }
+    else{
+      setErrorMessage("Invalid credentials, please try again!!");
+    }    
   }
+  const handleWarehouseChange = (e) => {
+    const selectedOption = e.target.selectedOptions[0];
+    const selected = selectedOption.value;
+    const warehouseId = selectedOption.getAttribute('data-warehouse-id');
+    setSelectedWarehouse(selected);
+    setSelectedWarehouseId(warehouseId);
+  };
+
   return (
     <div className="login-container">
+      <p style={{color:"red"}}>{errorMessage}</p>
       <h2>Login</h2>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="warehouse">Warehouse</label>
-          <select id="warehouse" name="warehouse">
-            <option value="warehouse1">Warehouse 1</option>
-            <option value="warehouse2">Warehouse 2</option>
-            <option value="warehouse3">Warehouse 3</option>
+          <select
+            value={selectedWarehouse}
+            onChange={handleWarehouseChange}
+            id="warehouse"
+            name="warehouse"
+            required
+          >
+            <option value="" disabled>Select warehouse</option>
+            {warehouses.map(warehouse =>
+              <option key={warehouse.warehouseId} value={warehouse.warehouseName} data-warehouse-id={warehouse.warehouseId}>
+                {warehouse.warehouseName}
+              </option>
+            )}
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" name="username" required />
+          <input required onChange={(e)=>{setUserId(e.target.value)}} type="text" id="username" name="username"  />
         </div>
         <div className="form-group">
-          <label htmlFor="id">ID</label>
-          <input type="text" id="id" name="id" required />
+          <label htmlFor="id">Password</label>
+          <input required onChange={(e)=>{setPassword(e.target.value)}} type="password" id="id" name="id" />
         </div>
         <button type="submit">Login</button>
       </form>
+      <br />
+      <Link to={'/signup'}>Register here</Link>
     </div>
   );
 };

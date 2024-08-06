@@ -1,0 +1,39 @@
+.alert-container {
+    padding: 10px;
+    border: 2px solid rgb(195, 199, 195);
+    border-radius: 5px;
+    height: fit-content;
+  }
+  
+  .alert-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .alert-message p {
+    margin: 0;
+    flex: 1;
+  }
+  
+  .alert-message button {
+    background-color: #721c24;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .alert-message button:hover {
+    background-color: #f5c6cb;
+    color: #721c24;
+  }
+  

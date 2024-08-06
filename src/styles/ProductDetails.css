@@ -1,0 +1,99 @@
+.new-cont{
+  width: 100%;
+}
+.product-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.product-container h1 {
+  text-align: center;
+}
+
+.product-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-container table, th, td {
+  border: 1px solid #ddd;
+}
+
+.product-container th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+.product-container th {
+  background-color: #f4f4f4;
+}
+
+.product-container button {
+  margin: 0 5px;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #218838;
+  color: #fff;
+  cursor: pointer;
+}
+
+.product-container button:hover {
+  background-color: #47a85c;
+}
+
+.edit-form {
+  margin-top: 20px;
+}
+
+.edit-form input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.edit-form button {
+  background-color: #28a745;
+}
+
+.edit-form button:hover {
+  background-color: #218838;
+}
+
+.barcode-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.barcode-container img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #fff;
+}
+#topHeader div{
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.barcode-button {
+  margin: 10px 0; 
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.barcode-button:hover {
+  background-color: #0056b3;
+}

@@ -1,9 +1,10 @@
 import React from 'react';
+import CategoryCharts from '../components/charts/CategoryCharts';
   
-  const Home = () =>  {
+  const Home = ({warehouseId}) =>  {
 	return (
 	  <div>
-        Home
+        <CategoryCharts warehouseId={warehouseId}/>
 	  </div>
 	);
   }

@@ -31,12 +31,10 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
       const productData = await res.json();
       const currentStock = productData.unitsInStocks;
 
-      // Calculate the updated stock level based on the operation
       const oldQuantity = order?.quantity || 0;
       const stockDifference = isUpdating ? quantity - oldQuantity : quantity;
       const updatedStock = currentStock - stockDifference;
 
-      // Check if the updated stock level is less than or equal to zero
       if (updatedStock <= 0) {
         setAlertMessage(`Stock of ${productData.productName} is more than maximum level, Couldn't place order`);
         setTimeout(() => {
@@ -66,7 +64,6 @@ const UpdateOrAddSalesOrder = ({ warehouseId, setIsUpdating, isUpdating, order, 
         throw new Error("Failed to submit form");
       }
 
-      // Update product stock
       const updateStockResponse = await fetch(`http://localhost:9090/api/v1.0/products/all/update/units/${productId}/${updatedStock}`, {
         method: 'PUT'
       });

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// prerit from here 
 import '../styles/AddProduct.css';
 
 const AddProduct = ({ warehouseId }) => {
@@ -33,7 +32,7 @@ const AddProduct = ({ warehouseId }) => {
 
     fetchCategories();
   }, []);
-// to here 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -52,7 +51,6 @@ const AddProduct = ({ warehouseId }) => {
         return;
     }
     try {
-      // prerit here changed the warehouseID
       const response = await fetch(`http://localhost:9090/api/v1.0/products/all/${formData.categoryId}/${warehouseId}`, {
         method: 'POST',
         headers: {
@@ -91,7 +89,6 @@ const AddProduct = ({ warehouseId }) => {
     <div className="add-product-container">
       <h2>Add New Product</h2>
       <form onSubmit={handleFormSubmit} className="add-product-form">
-        {/* prerit from here */}
         <div className="form-group">
           <label htmlFor="categoryId">Category:</label>
           <select
@@ -109,7 +106,6 @@ const AddProduct = ({ warehouseId }) => {
             ))}
           </select>
         </div>
-        {/* to here */}
         <div className="form-group">
           <label htmlFor="productName">Name:</label>
           <input
@@ -154,12 +150,10 @@ const AddProduct = ({ warehouseId }) => {
             required
             />
         </div>
-        {/* prerit from here wrapped the buttons in div and some more */}
         <div className="form-group">
           <button id='go-back-button' onClick={() => navigate('/viewproducts')} >Go Back</button>
           <button type="submit">Add Product</button>
         </div>
-        {/* to here  */}
       </form>
     </div>
     </>

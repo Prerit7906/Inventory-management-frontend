@@ -8,7 +8,6 @@ const UpdateOrAddPurchaseOrder = ({ warehouseId, setIsUpdating, isUpdating, orde
   const [quantity, setQuantity] = useState(order?.quantity || '');
   const [productId, setProductId] = useState(order?.product?.productId || '');
   const [supplierId, setSupplierId] = useState(order?.suppliers?.supplierId || '');
-  const [maxStockAlert, setMaxStockAlert] = useState(null);
   const [alertMessage,setAlertMessage]= useState('');
 
   useEffect(() => {

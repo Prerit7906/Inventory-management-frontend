@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 const PurchaseOrders = ({ warehouseId ,onEditOrder}) => {
   const [purchaseOrders, setPurchaseOrders] = useState([]);
@@ -67,12 +67,10 @@ const PurchaseOrders = ({ warehouseId ,onEditOrder}) => {
               <td>{order.product.category.categoryName}</td>
               <td>{order.date}</td>
               <td>
-              {/* <button onClick={() => handleEdit(order)}>Edit</button> */}
               <button id='deleteBtn' onClick={() => handleDelete(order.purchaseId)}>Delete</button>
               </td>
             </tr>
           ))}
-        {/* </ul> */}
         </tbody>
         </table>
       </div>

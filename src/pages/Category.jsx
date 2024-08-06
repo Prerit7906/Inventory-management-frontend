@@ -41,7 +41,7 @@ const Category = () => {
           setAlertMessage('');
         }, 4000);
         setCategoryName('');
-        fetchCategories(); // Refresh the categories list
+        fetchCategories(); 
       } else {
         console.error('Error adding category:', response.statusText);
       }

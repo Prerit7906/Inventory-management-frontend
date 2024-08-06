@@ -5,22 +5,20 @@ const CategoryCharts = (props) => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const chartContainerRef = useRef(null);
-    const chartRef = useRef(null);  // Ref to store the chart instance
+    const chartRef = useRef(null); 
 
-    // Fetch products
     const fetchProducts = useCallback(async () => {
         try {
             console.log("warehouse id : " + props.warehouseId);
             const response = await fetch(`http://localhost:9090/api/v1.0/products/all/warehouse/${props.warehouseId}`);
             const d = await response.json();
-            console.log(d); // Log fetched data
+            console.log(d);
             setProducts(d);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
     }, [props.warehouseId]);
 
-    // Update categories based on products
     const updateCategories = useCallback(() => {
         const updatedCategories = products.reduce((acc, product) => {
             const existingCategory = acc.find(c => c.type === product.category.categoryName);
@@ -50,12 +48,10 @@ const CategoryCharts = (props) => {
 
     useEffect(() => {
         if (categories.length > 0 && chartContainerRef.current) {
-            // Cleanup previous chart instance
             if (chartRef.current) {
                 chartRef.current.destroy();
             }
 
-            // Prepare your data
             const data = categories;
             const numFormatter = new Intl.NumberFormat("en-US");
             const total = data.reduce((sum, d) => sum + d["count"], 0);
@@ -72,9 +68,9 @@ const CategoryCharts = (props) => {
                 series: [
                     {
                         type: "donut",
-                        calloutLabelKey: "type",  // Label showing category names
-                        angleKey: "count",        // Key for the data values used to determine segment size
-                        sectorLabelKey: "count",  // Key for the data values shown inside the segments
+                        calloutLabelKey: "type", 
+                        angleKey: "count",       
+                        sectorLabelKey: "count", 
                         calloutLabel: {
                             enabled: false,
                         },
@@ -112,7 +108,6 @@ const CategoryCharts = (props) => {
                 ],
             };
 
-            // Create the chart and store the instance
             chartRef.current = AgCharts.create(options);
         }
     }, [categories]);

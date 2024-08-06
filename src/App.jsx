@@ -42,7 +42,6 @@ function App() {
   return (
     <div className="App">
       {isLoggedIn ? (
-        // prerit here
         <MainLayout
           warehouseName={warehouseName}
           setIsLoggedIn={setIsLoggedIn}
@@ -115,7 +114,6 @@ function App() {
               path="/highproducts"
               element={<HighLevels warehouseId={warehouseId} />}
             ></Route>
-            {/* prerit here  */}
             <Route
               path="/addproduct"
               element={<AddProduct warehouseId={warehouseId} />}
@@ -126,7 +124,6 @@ function App() {
               element={<UploadedImages />}
             />
             <Route path='/inventoryreport' element={<InventoryReport warehouseId={warehouseId} />} />
-            {/* prerit here  */}
             <Route path="/categories" element={<Category />} />
             <Route path="/suppliers" element={<Suppliers />} />
           </Routes>

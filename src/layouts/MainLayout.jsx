@@ -6,7 +6,6 @@ import "../styles/MainLayout.css"
   const MainLayout = (props) =>  {
 	return (
     <>
-    {/* prerit here  */}
     <Header warehouseName={props.warehouseName} setIsLoggedIn={props.setIsLoggedIn}/>
     <div className='mainLayoutMainContent'>
       <div className='mainLeft'>

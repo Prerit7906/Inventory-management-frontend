@@ -1,5 +1,4 @@
-/* Container styling */
-#suppliersContainer {
+  #suppliersContainer {
     padding: 20px;
     text-align: center;
   }
@@ -8,7 +7,6 @@
     margin-bottom: 20px;
   }
   
-  /* Form styling */
   #suppliersContainer form {
     margin-bottom: 20px;
   }
@@ -35,7 +33,6 @@
     background-color: #45a049;
   }
   
-  /* Table styling */
   #suppliersContainer table {
     width: 100%;
     border-collapse: collapse;
@@ -68,7 +65,6 @@
     cursor: pointer;
   }
   
-  /* Button styling */
   #suppliersContainer button {
     padding: 5px 10px;
     border: none;

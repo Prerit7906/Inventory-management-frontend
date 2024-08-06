@@ -11,7 +11,6 @@ const InventoryReport = (props) => {
 
   useEffect(() => {
     fetchProducts();
-    // calculateValue();
   }, []);
 
   useEffect(() => {
@@ -37,14 +36,6 @@ const InventoryReport = (props) => {
       console.error('Error fetching products:', error);
     }
   };
-
-  const generatePdf = ()=> { 
-
-  }
-
-  
-
-  
 
   return (
     <div className="product-container">
@@ -73,8 +64,6 @@ const InventoryReport = (props) => {
         </tbody>
         <h3>Total Value: ${sum}</h3>
       </table>
-        {/* <button onClick={() => generatePdf()}></button> */}
-      
     </div>
   );
 };

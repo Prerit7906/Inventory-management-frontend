@@ -3,7 +3,6 @@
     border: 2px solid rgb(195, 199, 195);
     border-radius: 5px;
     height: fit-content;
-    /* overflow: scroll; */
   }
   
   .alert-message {

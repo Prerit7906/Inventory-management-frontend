@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ViewProducts.css';
-import '../styles/LowAndHighLevel.css'
-import ProductsDetails from './ProductDetails';
+import '../styles/LowAndHighLevel.css';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
 const HighLevels = (props) => {

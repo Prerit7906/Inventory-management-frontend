@@ -5,7 +5,7 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for better visual appearance */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .login-container h2 {
@@ -25,10 +25,10 @@
 .login-container .form-group input,
 .login-container .form-group select {
   width: 100%;
-  padding: 8px 10px; /* Added padding for input fields */
+  padding: 8px 10px; 
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding is included in the width calculation */
+  box-sizing: border-box; 
 }
 
 .login-container button {
@@ -50,7 +50,7 @@
   text-align: center;
   display: block;
   margin-top: 10px;
-  color: #007BFF; /* Link color */
+  color: #007BFF;
   text-decoration: none;
 }
 

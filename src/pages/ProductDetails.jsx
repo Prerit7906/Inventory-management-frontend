@@ -6,7 +6,6 @@ import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload, faBarcode } from "@fortawesome/free-solid-svg-icons";
-import Barcode from "react-barcode";
 
 const ProductDetails = ({ setValue }) => {
   const { productId } = useParams();
@@ -24,7 +23,6 @@ const ProductDetails = ({ setValue }) => {
   const [showBarcode, setShowBarcode] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch product details
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -45,7 +43,6 @@ const ProductDetails = ({ setValue }) => {
     fetchProductDetails();
   }, [numericProductId]);
 
-  // Fetch images
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -66,7 +63,6 @@ const ProductDetails = ({ setValue }) => {
     fetchImages();
   }, [productId]);
 
-  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -75,7 +71,6 @@ const ProductDetails = ({ setValue }) => {
     }));
   };
 
-  // Handle form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (formData.unitsInStocks >= 3000 || formData.unitsInStocks <= 0) {
@@ -159,7 +154,7 @@ const ProductDetails = ({ setValue }) => {
             setAlertMessage("");
           }, 5000);
           setFileName("");
-          setImg(null); // Clear the selected image after upload
+          setImg(null);
         });
       });
     }

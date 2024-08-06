@@ -8,8 +8,6 @@ const LowLevels = (props) => {
   const [lowProducts, setLowProducts] = useState([]);
   const [minimumLevel, setMinimumLevel] = useState([500]);
   const [inputValue, setInputValue] = useState();
-  //   const [selectedProduct, setSelectedProduct] = useState(null);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const LowLevels = (props) => {
     setMinimumLevel(inputValue);
   };
 
-  // Handle input changes
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -58,7 +55,6 @@ const LowLevels = (props) => {
           <input type="text" value={inputValue} onChange={handleChange} />
         </label>
         <button type="submit">Submit</button>
-        {/* {displayValue && <h1>{displayValue}</h1>} */}
       </form>
 
       <h1>Product List</h1>

@@ -3,20 +3,28 @@ import '../styles/ViewProducts.css';
 import ProductsDetails from './ProductDetails';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ViewProducts = (props) => {
+const InventoryReport = (props) => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [sum,setSum ] = useState(0);
   const navigate = useNavigate();
-  // const [productName, setProductName] = useState('');
-  // const [productDescription, setProductDescription] = useState('');
-  // const [unitPrice, setUnitPrice] = useState('');
-  // const [unitsInStock, setUnitsInStock] = useState('');
-  // const [categoryId, setCategoryId] = useState('');
-  // const [warehouseId, setWarehouseId] = useState('');
 
   useEffect(() => {
     fetchProducts();
+    // calculateValue();
   }, []);
+
+  useEffect(() => {
+    const calculateValue = () => {
+      let totalSum = 0;
+      products.forEach(product => {
+        totalSum += (product.unitPrice * product.unitsInStocks);
+      });
+      setSum(totalSum);
+    };
+  
+    calculateValue();
+  }, [products]);
 
   const fetchProducts = async () => {
     try {
@@ -24,55 +32,51 @@ const ViewProducts = (props) => {
       const response = await fetch(`http://localhost:9090/api/v1.0/products/all/warehouse/${props.warehouseId}`);
       const data = await response.json();
       setProducts(data);
+      console.log(products);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
   };
 
-  const inventoryReport = async () => {
-    navigate('/inventoryreport');
+  const generatePdf = ()=> { 
+
   }
+
+  
 
   
 
   return (
     <div className="product-container">
-       <div className="header-buttons">
-        <button onClick={() => navigate('/addproduct')} className="add-product-button">Add New Product</button>
-      </div>
-      <h1>Product List</h1>
+      <h1>Inventory Report</h1>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
             <th>Price</th>
             <th>Stock</th>
-            <th>Actions</th>
+            <th>Value</th>
           </tr>
         </thead>
         <tbody>
         { products!= null ? products.map(product => (
             <tr key={product.productId}>
-            <td>{product.productId}</td>
             <td>{product.productName}</td>
-            <td>{product.description}</td>
             <td>&#8377;{product.unitPrice}</td>
             <td>{product.unitsInStocks}</td>
-            <td>
-            <Link to={`/products/${product.productId}`}>View Details</Link>
-            </td>
+            <td>&#8377;{product.unitPrice * product.unitsInStocks}</td>
             </tr>
-          )):
+          )
+        ):
             <tr> <td colSpan={6}>No products available</td></tr>
           }
         </tbody>
+        <h3>Total Value: ${sum}</h3>
       </table>
-          <button onClick={() => inventoryReport()}>Inventory Report</button>
+        {/* <button onClick={() => generatePdf()}></button> */}
       
     </div>
   );
 };
 
-export default ViewProducts;
+export default InventoryReport;

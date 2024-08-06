@@ -18,6 +18,7 @@ import PurchaseOrders from './pages/PurchaseOrders';
 import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
 import HighLevels from './pages/HighLevels';
 import UploadedImages from './pages/UploadedImages';
+import InventoryReport from './pages/InventoryReport';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -41,9 +42,9 @@ function App() {
     <div className="App">
       {isLoggedIn?
       // prerit here 
-      <MainLayout warehouseName={warehouseName} setIsLoggedIn={setIsLoggedIn}  warehouseId={warehouseId}>
+      <MainLayout warehouseName={warehouseName} setIsLoggedIn={ setIsLoggedIn}  warehouseId={warehouseId}>
       <Routes>
-      <Route path='/home'element={<Home/>}/>
+      <Route path='/home'element={<Home warehouseId={warehouseId}/>}/>
       <Route path='/notifications'element={<AlertMessages warehouseId={warehouseId}/>}/>
       <Route
               path="/salesOrders"
@@ -98,6 +99,8 @@ function App() {
       <Route path="/addproduct" element={<AddProduct warehouseId={warehouseId} />} /> 
       <Route path="/products/:productId" element={<ProductDetails />} />
       <Route path="/products/:productId/images" element={<UploadedImages />} />
+      <Route path='/inventoryreport' element={<InventoryReport warehouseId={warehouseId} />} />
+      
       {/* prerit here  */}
       <Route path="/categories" element={<Category />} />
       <Route path="/suppliers" element={<Suppliers />} />

@@ -1,11 +1,12 @@
 import React from 'react';
 import ViewProducts from './ViewProducts';
 import { Link } from 'react-router-dom';
+import CategoryCharts from '../components/charts/CategoryCharts';
   
-  const Home = () =>  {
+  const Home = ({warehouseId}) =>  {
 	return (
 	  <div>
-        <h1>This is home page</h1>
+        <CategoryCharts warehouseId={warehouseId}/>
 	  </div>
 	);
   }

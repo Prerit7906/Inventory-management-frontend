@@ -1,24 +1,26 @@
-import "./App.css";
-import SalesOrders from "./pages/SalesOrders";
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import Login from "./components/Login";
-import ViewProducts from "./pages/ViewProducts";
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
-import AddProduct from "./pages/AddProduct";
-import UpdateOrAddSalesOrder from "./pages/UpdateOrAddSalesOrder";
-import Category from "./pages/Category";
-import Signup from "./components/Signup";
-import Suppliers from "./pages/Suppliers";
-import LowLevels from "./pages/LowLevels";
-import AlertMessages from "./pages/AlertMessages";
-import PurchaseOrders from "./pages/PurchaseOrders";
-import UpdateOrAddPurchaseOrder from "./pages/UpdateOrAddPurchaseOrder";
-import HighLevels from "./pages/HighLevels";
-import UploadedImages from "./pages/UploadedImages";
+import './App.css';
+import SalesOrders from './pages/SalesOrders';
+import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Login from './components/Login';
+import ViewProducts from './pages/ViewProducts';
+import Home from './pages/Home';
+import ProductDetails from './pages/ProductDetails';
+import AddProduct from './pages/AddProduct';
+import UpdateOrAddSalesOrder from './pages/UpdateOrAddSalesOrder';
+import Category from './pages/Category';
+import Signup from './components/Signup';
+import Suppliers from './pages/Suppliers';
+import LowLevels from './pages/LowLevels';
+import AlertMessages from './pages/AlertMessages';
+import PurchaseOrders from './pages/PurchaseOrders';
+import UpdateOrAddPurchaseOrder from './pages/UpdateOrAddPurchaseOrder';
+import HighLevels from './pages/HighLevels';
+import UploadedImages from './pages/UploadedImages';
+import InventoryReport from './pages/InventoryReport';
 import Barcodes from "./pages/Barcodes";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [warehouseName, setWarehouseName] = useState(null);
@@ -47,7 +49,7 @@ function App() {
           warehouseId={warehouseId}
         >
           <Routes>
-            <Route path="/home" element={<Home />} />
+          <Route path='/home'element={<Home warehouseId={warehouseId}/>}/>
             <Route
               path="/notifications"
               element={<AlertMessages warehouseId={warehouseId} />}
@@ -123,6 +125,7 @@ function App() {
               path="/products/:productId/images"
               element={<UploadedImages />}
             />
+            <Route path='/inventoryreport' element={<InventoryReport warehouseId={warehouseId} />} />
             {/* prerit here  */}
             <Route path="/categories" element={<Category />} />
             <Route path="/suppliers" element={<Suppliers />} />
